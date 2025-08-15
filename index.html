@@ -51,6 +51,32 @@
       word-break: break-all;
       color: #0f0;
     }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .stat-title {
+      font-size: 14px;
+      opacity: 0.75;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .subtle {
+      font-size: 12px;
+      opacity: 0.65;
+      word-break: break-all;
+    }
   </style>
 </head>
 <body>
@@ -66,6 +92,31 @@
 
   <h3>🪙 DGND Token Info</h3>
   <p><strong>Token Address:</strong> 0x916eC27E0db3f8beb2c784a2617014094089148A</p>
+
+  <!-- New Burned Supply Section -->
+  <h3>🔥 Total Burned Supply</h3>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-title">Burned (combined)</div>
+      <div class="stat-value"><span id="burnedCombined">Loading...</span> DGND</div>
+      <div class="subtle">Sum of dead + zero</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Dead wallet</div>
+      <div class="stat-value"><span id="burnedDead">-</span> DGND</div>
+      <div class="subtle">0x000000000000000000000000000000000000dEaD</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Zero address</div>
+      <div class="stat-value"><span id="burnedZero">-</span> DGND</div>
+      <div class="subtle">0x0000000000000000000000000000000000000000</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">% of current totalSupply()</div>
+      <div class="stat-value"><span id="burnPct">-</span></div>
+      <div class="subtle">Uses live totalSupply()</div>
+    </div>
+  </div>
 
   <h3>💼 Treasury Wallets</h3>
   <p><strong>Solana:</strong> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</p>
@@ -103,30 +154,20 @@
 
   <div class="section">
     <h2>🌱 BERTI</h2>
-<p>BERTI started as a meme token — but it’s no joke. Backed by real revenue streams and ecosystem growth, BERTI blends meme culture with utility. Through strategic partnerships and smart treasury plays, BERTI represents a new wave of sustainable community-driven projects.</p>
+    <p>BERTI powers decentralized renewable energy via tokenized microgrids. DGND DAO holds a position in BERTI and provides treasury support. This partnership represents our commitment to real-world utility and ecosystem expansion.</p>
   </div>
 
   <div class="section">
     <h2>🤖 SyntraFi</h2>
-<p>SyntraFi delivers AI-generated trading signals, powerful Telegram bots, and automation tools designed to help users trade smarter. DGND DAO is working with SyntraFi to unlock predictive tools, grow our treasury, and generate passive returns through bot-driven execution.</p>
+    <p>SyntraFi offers Telegram bots and tools to monetize engagement. DGND has donated tokens to the SyntraFi team in good faith to open collaborative tools for our DAO. Expect joint bot use, alerts, and channel monetization to increase revenue for holders.</p>
   </div>
-  <p>Check out SyntraFi’s AI trading bots and signal systems at <a href="https://syntra.finance/" target="_blank">syntra.finance</a></p>
-</div>
-  
-  <!-- Fusion Watch and SyntraFi Section -->
-<div class="section">
-  <h2>🧪 Fusion Watch</h2>
-  <p>Keep tabs on EMP Fusion at <a href="https://fusion-watch.com/" target="_blank">fusion-watch.com</a></p>
-  <p>Support the project by donating directly to their wallet:</p>
-  <div class="qr-box">
-    <img src="fusion_donation_wallet_qr.png" alt="Fusion Donation QR" width="180">
-    <p><small>Wallet: 0x3e83C272A94fC713974f5c95aA7CFbbe04234298</small></p>
-  </div>
-</div>
 
   <script>
     const tokenAddress = "0x916eC27E0db3f8beb2c784a2617014094089148A";
     const tokenDecimals = 18;
+    const deadWallet = "0x000000000000000000000000000000000000dEaD";
+    const zeroWallet = "0x0000000000000000000000000000000000000000";
+    const avaxRpc = "https://api.avax.network/ext/bc/C/rpc";
 
     async function connectWallet() {
       if (window.ethereum) {
@@ -148,7 +189,49 @@
         alert("Please install MetaMask!");
       }
     }
+
+    // Load burned supply stats on page load (no wallet required)
+    async function loadBurnedSupply() {
+      try {
+        const provider = new ethers.providers.JsonRpcProvider(avaxRpc);
+        const tokenABI = [
+          "function balanceOf(address) view returns (uint256)",
+          "function totalSupply() view returns (uint256)"
+        ];
+        const token = new ethers.Contract(tokenAddress, tokenABI, provider);
+
+        const [deadBalBN, zeroBalBN, totalSupplyBN] = await Promise.all([
+          token.balanceOf(deadWallet),
+          token.balanceOf(zeroWallet),
+          token.totalSupply()
+        ]);
+
+        const deadBal = parseFloat(ethers.utils.formatUnits(deadBalBN, tokenDecimals));
+        const zeroBal = parseFloat(ethers.utils.formatUnits(zeroBalBN, tokenDecimals));
+        const totalSupply = parseFloat(ethers.utils.formatUnits(totalSupplyBN, tokenDecimals));
+
+        const combined = deadBal + zeroBal;
+        const pct = totalSupply > 0 ? (combined / totalSupply) * 100 : 0;
+
+        // Update UI
+        document.getElementById("burnedDead").textContent = deadBal.toLocaleString(undefined, { maximumFractionDigits: 6 });
+        document.getElementById("burnedZero").textContent = zeroBal.toLocaleString(undefined, { maximumFractionDigits: 6 });
+        document.getElementById("burnedCombined").textContent = combined.toLocaleString(undefined, { maximumFractionDigits: 6 });
+        document.getElementById("burnPct").textContent = pct.toFixed(4) + "%";
+      } catch (err) {
+        console.error("Error loading burned supply:", err);
+        document.getElementById("burnedCombined").textContent = "Error";
+        document.getElementById("burnedDead").textContent = "-";
+        document.getElementById("burnedZero").textContent = "-";
+        document.getElementById("burnPct").textContent = "-";
+      }
+    }
+
+    window.addEventListener("load", loadBurnedSupply);
   </script>
 </body>
 </html>
-
+"""
+with open("/mnt/data/dgnd-dapp_burn.html", "w") as f:
+    f.write(content)
+print("Wrote /mnt/data/dgnd-dapp_burn.html")
