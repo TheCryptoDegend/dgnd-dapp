@@ -148,50 +148,41 @@
     <p>SyntraFi offers signals on various Crypto/Defi projects. DGND has donated tokens to the SyntraFi team in good faith to open collaborative tools for our DAO. Expect joint bot use, alerts, and channel monetization to increase revenue for holders.</p>
   </div>
 
-  <a href="https://dexfi.com/vaults/1030" target="_blank" style="
-  display: inline-block;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #ff6a00, #ee0979);
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 12px;
-  text-decoration: none;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: all 0.2s ease-in-out;
-">
-<a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener" class="gle-btn" aria-label="Try the GLE app">
-  🚀 Try the GLE App
-</a>
+ <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:24px 0;">
+  <a href="https://dexfi.com/vaults/1030" target="_blank" rel="noopener" class="btn-vault" aria-label="Enter DexFi Vault">
+    🚀 Enter DexFi Vault
+  </a>
+
+  <a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener" class="gle-btn" aria-label="Try the GLE app">
+    🌱 Try the GLE App
+  </a>
+</div>
 
 <style>
+  .btn-vault{
+    display:inline-block;
+    padding:12px 24px;
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color:#fff; font-size:16px; font-weight:700;
+    border-radius:12px; text-decoration:none; text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+    transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+  }
+  .btn-vault:hover{ background: linear-gradient(135deg, #ee0979, #c4006b); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+  .btn-vault:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
   .gle-btn{
     display:inline-block;
     padding:12px 22px;
     background: linear-gradient(135deg, #22c55e, #16a34a);
-    color:#fff;
-    font-weight:700;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    border-radius:12px;
-    text-decoration:none;
-    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+    color:#fff; font-weight:700; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    border-radius:12px; text-decoration:none;
+    box-shadow:0 6px 14px rgba(0,0,0,.15);
     transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
   }
-  .gle-btn:hover{
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    transform:translateY(-1px);
-    box-shadow:0 10px 20px rgba(0,0,0,0.18);
-  }
-  .gle-btn:active{
-    transform:translateY(0);
-    box-shadow:0 4px 10px rgba(0,0,0,0.12);
-  }
+  .gle-btn:hover{ background: linear-gradient(135deg, #16a34a, #15803d); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+  .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
 </style>
-
-    
-  🚀 Enter DexFi Vault
-</a>
 
   <script>
     const tokenAddress = "0x916eC27E0db3f8beb2c784a2617014094089148A";
@@ -258,6 +249,7 @@
   </script>
 </body>
 </html>
+
 
 
 
