@@ -99,6 +99,64 @@
   <h3>💸 OTC Deal Request</h3>
   <p><a href="mailto:mikevessicchio@gmail.com?subject=OTC Deal for DGND&body=Hey, I'm interested in an OTC deal. Here's my wallet address: " target="_blank">Send Email to Mike</a></p>
 
+  <section id="dgnd-quiz" style="max-width:960px;margin:40px auto;padding:0 16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial">
+<div style="background:#0f1722;color:#e6edf5;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)">
+<h2 style="margin:0 0 6px;font-size:26px">Degends DAO — Learn‑to‑Earn Quiz</h2>
+<p style="margin:0 0 14px;color:#9cb0c2">Score <b>4/5</b> or better. When you pass, your answers will be <b>emailed</b> to us for DGND rewards.</p>
+
+
+<form id="quizForm" action="https://formsubmit.co/mikevessicchio@gmail.com" method="POST" style="display:block">
+<!-- FormSubmit options -->
+<input type="hidden" name="_subject" value="DGND Quiz Submission" />
+<input type="hidden" name="_template" value="table" />
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+<input type="hidden" name="_captcha" value="false" />
+
+
+<!-- Wallet field -->
+<div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;margin:6px 0 16px">
+<span style="color:#9cb0c2">EVM wallet</span>
+<input id="wallet" name="wallet" placeholder="0x…" style="flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:14px" required />
+<button id="connect" type="button" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#e6edf5;border-radius:10px;padding:8px 10px;cursor:pointer">Connect</button>
+</div>
+
+
+<!-- Questions -->
+<ol style="padding-left:18px;margin:0">
+<li style="margin:0 0 12px">
+<div>What is the DGND token contract address?</div>
+<label><input type="radio" name="q1" value="A" required> 0x916eC27E0db3f8beb2c784a2617014094089148A</label><br/>
+<label><input type="radio" name="q1" value="B"> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label><br/>
+<label><input type="radio" name="q1" value="C"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label><br/>
+<label><input type="radio" name="q1" value="D"> 0x000000000000000000000000000000000000dEaD</label>
+</li>
+<li style="margin:0 0 12px">
+<div>Which wallet is the DAO's EVM treasury?</div>
+<label><input type="radio" name="q2" value="A" required> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label><br/>
+<label><input type="radio" name="q2" value="B"> 0x916eC27E0db3f8beb2c784a2617014094089148A</label><br/>
+<label><input type="radio" name="q2" value="C"> 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy</label><br/>
+<label><input type="radio" name="q2" value="D"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label>
+</li>
+<li style="margin:0 0 12px">
+<div>Degends partners with other projects to…</div>
+<label><input type="radio" name="q3" value="A" required> Pump and dump tokens</label><br/>
+<label><input type="radio" name="q3" value="B"> Educate, cross‑promote, and build value for both communities</label><br/>
+<label><input type="radio" name="q3" value="C"> Collect private keys</label><br/>
+<label><input type="radio" name="q3" value="D"> Mine Bitcoin</label>
+</li>
+<li style="margin:0 0 12px">
+<div>True or False: You should ever paste your seed phrase to claim DGND rewards.</div>
+<label><input type="radio" name="q4" value="A" required> True</label><br/>
+<label><input type="radio" name="q4" value="B"> False</label>
+</li>
+<li style="margin:0 0 12px">
+<div>Honor vs Madness is primarily…</div>
+<label><input type="radio" name="q5" value="A" required> A DeFi tax tool</label><br/>
+<label><input type="radio" name="q5" value="B"> An Immutable‑based game partner of Degends</label><br/>
+<label><input type="radio" name="q5" value="C"> A stablecoin</label><br/>
+<label><input type="radio" name="q5" value="D"> A hardware wallet</label>
+</script>
+
   <h2>🎶 Lil Script – Music Player</h2>
   <iframe width="100%" height="166" scrolling="no" frameborder="no"
     src="https://www.youtube.com/embed/gKl_SmAzeKo?controls=1" allowfullscreen>
@@ -254,6 +312,7 @@
   </script>
 </body>
 </html>
+
 
 
 
