@@ -99,75 +99,133 @@
   <h3>💸 OTC Deal Request</h3>
   <p><a href="mailto:mikevessicchio@gmail.com?subject=OTC Deal for DGND&body=Hey, I'm interested in an OTC deal. Here's my wallet address: " target="_blank">Send Email to Mike</a></p>
 
-<section id="dgnd-quiz" style="max-width:960px;margin:40px auto;padding:0 16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial">
+<section id="dgnd-quiz" style="max-width:960px;margin:40px auto;padding:0 16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; text-align:left;">
+  <div style="background:#0f1722;color:#e6edf5;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)">
+    <h2 style="margin:0 0 6px;font-size:26px;text-align:left">Degends DAO — Learn‑to‑Earn Quiz</h2>
+    <p style="margin:0 0 14px;color:#9cb0c2;text-align:left">Score <b>4/5</b> or better. When you pass, your answers will be <b>emailed</b> to us for DGND rewards.</p>
 
+    <!-- Use FormSubmit to email you results -->
+    <form id="quizForm" action="https://formsubmit.co/mikevessicchio@gmail.com" method="POST" style="display:block">
+      <!-- FormSubmit options -->
+      <input type="hidden" name="_subject" value="DGND Quiz Submission" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+      <input type="hidden" name="_captcha" value="false" />
 
-<!-- Handy metadata for your email -->
-<input type="hidden" name="score" id="scoreField" />
-<input type="hidden" name="passed" id="passedField" />
-<input type="hidden" name="userAgent" id="uaField" />
-</form>
+      <!-- Wallet field -->
+      <div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;margin:6px 0 16px">
+        <span style="color:#9cb0c2">EVM wallet</span>
+        <input id="wallet" name="wallet" placeholder="0x…" style="flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:14px" required />
+        <button id="connect" type="button" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#e6edf5;border-radius:10px;padding:8px 10px;cursor:pointer">Connect</button>
+      </div>
 
+      <!-- Questions (bold, left-aligned) -->
+      <ol style="padding-left:18px;margin:0">
+        <li style="margin:0 0 16px">
+          <div><b>What is the DGND token contract address?</b></div>
+          <div><label><input type="radio" name="q1" value="A" required> 0x916eC27E0db3f8beb2c784a2617014094089148A</label></div>
+          <div><label><input type="radio" name="q1" value="B"> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label></div>
+          <div><label><input type="radio" name="q1" value="C"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label></div>
+          <div><label><input type="radio" name="q1" value="D"> 0x000000000000000000000000000000000000dEaD</label></div>
+        </li>
 
-<p style="color:#9cb0c2;font-size:12px;margin-top:12px">DGND Token: 0x916eC27E0db3f8beb2c784a2617014094089148A · DAO EVM: 0x7B95b039d4B9C10772376643B1B7C496C80d0062 · Solana: 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</p>
-</div>
+        <li style="margin:0 0 16px">
+          <div><b>Which wallet is the DAO's EVM treasury?</b></div>
+          <div><label><input type="radio" name="q2" value="A" required> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label></div>
+          <div><label><input type="radio" name="q2" value="B"> 0x916eC27E0db3f8beb2c784a2617014094089148A</label></div>
+          <div><label><input type="radio" name="q2" value="C"> 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy</label></div>
+          <div><label><input type="radio" name="q2" value="D"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label></div>
+        </li>
+
+        <li style="margin:0 0 16px">
+          <div><b>Degends partners with other projects to…</b></div>
+          <div><label><input type="radio" name="q3" value="A" required> Pump and dump tokens</label></div>
+          <div><label><input type="radio" name="q3" value="B"> Educate, cross‑promote, and build value for both communities</label></div>
+          <div><label><input type="radio" name="q3" value="C"> Collect private keys</label></div>
+          <div><label><input type="radio" name="q3" value="D"> Mine Bitcoin</label></div>
+        </li>
+
+        <li style="margin:0 0 16px">
+          <div><b>True or False: You should ever paste your seed phrase to claim DGND rewards.</b></div>
+          <div><label><input type="radio" name="q4" value="A" required> True</label></div>
+          <div><label><input type="radio" name="q4" value="B"> False</label></div>
+        </li>
+
+        <li style="margin:0 0 16px">
+          <div><b>Honor vs Madness is primarily…</b></div>
+          <div><label><input type="radio" name="q5" value="A" required> A DeFi tax tool</label></div>
+          <div><label><input type="radio" name="q5" value="B"> An Immutable‑based game partner of Degends</label></div>
+          <div><label><input type="radio" name="q5" value="C"> A stablecoin</label></div>
+          <div><label><input type="radio" name="q5" value="D"> A hardware wallet</label></div>
+        </li>
+      </ol>
+
+      <div id="status" style="margin:12px 0 0; font-weight:600"></div>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button type="button" id="checkBtn" style="background:linear-gradient(135deg,#22c55e,#2dd4bf);color:#04210e;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer">Check Score</button>
+        <button type="submit" id="submitBtn" disabled style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#e6edf5;border-radius:12px;padding:10px 14px;font-weight:700;cursor:not-allowed">Send Results (Email)</button>
+      </div>
+
+      <!-- Hidden metadata sent in email -->
+      <input type="hidden" name="score" id="scoreField" />
+      <input type="hidden" name="passed" id="passedField" />
+      <input type="hidden" name="userAgent" id="uaField" />
+    </form>
+
+    <p style="color:#9cb0c2;font-size:12px;margin-top:12px">DGND Token: 0x916eC27E0db3f8beb2c784a2617014094089148A · DAO EVM: 0x7B95b039d4B9C10772376643B1B7C496C80d0062 · Solana: 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</p>
+  </div>
 </section>
 
-
 <script>
-// Correct answers (keys correspond to the radio values above)
-const CORRECT = { q1: 'A', q2: 'A', q3: 'B', q4: 'B', q5: 'B' };
-const PASSING = 4; // 4/5
+  // Quiz logic (kept separate from your other scripts)
+  const CORRECT = { q1: 'A', q2: 'A', q3: 'B', q4: 'B', q5: 'B' };
+  const PASSING = 4; // 4/5
 
+  // Connect button (auto-fill wallet field)
+  document.getElementById('connect').addEventListener('click', async () => {
+    if (!window.ethereum) { alert('No wallet found. Install MetaMask or a compatible EVM wallet.'); return; }
+    try {
+      const [addr] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      document.getElementById('wallet').value = addr;
+    } catch (e) { console.warn(e); }
+  });
 
-// Optional MetaMask connect (to auto-fill wallet field)
-document.getElementById('connect').addEventListener('click', async () => {
-if(!window.ethereum){ alert('No wallet found. Install MetaMask or a compatible EVM wallet.'); return; }
-try{ const [addr] = await window.ethereum.request({ method:'eth_requestAccounts' }); document.getElementById('wallet').value = addr; }catch(e){ console.warn(e); }
-});
+  function isValidAddress(a){ return /^0x[a-fA-F0-9]{40}$/.test((a||'').trim()); }
 
+  // Score check
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const status = document.getElementById('status');
+    const wallet = document.getElementById('wallet').value.trim();
+    if (!isValidAddress(wallet)) { status.textContent = 'Enter a valid EVM address (starts with 0x…)'; status.style.color = '#ffb4b4'; return; }
 
-function isValidAddress(a){ return /^0x[a-fA-F0-9]{40}$/.test((a||'').trim()); }
+    const form = document.getElementById('quizForm');
+    let score = 0; const answers = {};
+    Object.keys(CORRECT).forEach(q => {
+      const sel = form.querySelector(`input[name="${q}"]:checked`);
+      const val = sel ? sel.value : null; answers[q] = val; if (val === CORRECT[q]) score++;
+    });
 
+    if (Object.values(answers).some(v => v === null)) { status.textContent = 'Please answer all questions.'; status.style.color = '#ffb4b4'; return; }
 
-// Score check
-document.getElementById('checkBtn').addEventListener('click', () => {
-const status = document.getElementById('status');
-const wallet = document.getElementById('wallet').value.trim();
-if(!isValidAddress(wallet)){ status.textContent = 'Enter a valid EVM address (starts with 0x…)'; status.style.color = '#ffb4b4'; return; }
+    const passed = score >= PASSING;
+    status.textContent = passed ? `Nice! Score ${score}/5 — you qualify. Click "Send Results (Email)".` : `Score ${score}/5 — need ${PASSING}/5 to qualify.`;
+    status.style.color = passed ? '#5bd3a1' : '#ffb4b4';
 
+    // Fill hidden fields for email
+    document.getElementById('scoreField').value = String(score);
+    document.getElementById('passedField').value = passed ? 'true' : 'false';
+    document.getElementById('uaField').value = navigator.userAgent;
 
-const form = document.getElementById('quizForm');
-let score = 0; const answers = {};
-Object.keys(CORRECT).forEach(q => {
-const sel = form.querySelector(`input[name="${q}"]:checked`);
-const val = sel ? sel.value : null; answers[q] = val; if(val === CORRECT[q]) score++;
-});
-
-
-if(Object.values(answers).some(v => v === null)){ status.textContent = 'Please answer all questions.'; status.style.color = '#ffb4b4'; return; }
-
-
-const passed = score >= PASSING;
-status.textContent = passed ? `Nice! Score ${score}/5 — you qualify. Click \"Send Results (Email)\".` : `Score ${score}/5 — need ${PASSING}/5 to qualify.`;
-status.style.color = passed ? '#5bd3a1' : '#ffb4b4';
-
-
-// Fill hidden fields for email
-document.getElementById('scoreField').value = String(score);
-document.getElementById('passedField').value = passed ? 'true' : 'false';
-document.getElementById('uaField').value = navigator.userAgent;
-
-
-// Enable/disable submit
-const submitBtn = document.getElementById('submitBtn');
-submitBtn.disabled = !passed;
-submitBtn.style.cursor = passed ? 'pointer' : 'not-allowed';
-submitBtn.style.background = passed ? 'linear-gradient(135deg,#22c55e,#2dd4bf)' : 'transparent';
-submitBtn.style.color = passed ? '#04210e' : '#e6edf5';
-submitBtn.style.border = passed ? 'none' : '1px solid rgba(255,255,255,.3)';
-});
+    // Enable/disable submit
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = !passed;
+    submitBtn.style.cursor = passed ? 'pointer' : 'not-allowed';
+    submitBtn.style.background = passed ? 'linear-gradient(135deg,#22c55e,#2dd4bf)' : 'transparent';
+    submitBtn.style.color = passed ? '#04210e' : '#e6edf5';
+    submitBtn.style.border = passed ? 'none' : '1px solid rgba(255,255,255,.3)';
+  });
 </script>
+  
   <div class="tip-box">
     <h3>💸 Tip Lil Script</h3>
     <p>Support the artist behind the movement:</p>
@@ -318,6 +376,7 @@ submitBtn.style.border = passed ? 'none' : '1px solid rgba(255,255,255,.3)';
   </script>
 </body>
 </html>
+
 
 
 
