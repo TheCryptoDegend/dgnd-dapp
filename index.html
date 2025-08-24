@@ -99,6 +99,43 @@
   <h3>💸 OTC Deal Request</h3>
   <p><a href="mailto:mikevessicchio@gmail.com?subject=OTC Deal for DGND&body=Hey, I'm interested in an OTC deal. Here's my wallet address: " target="_blank">Send Email to Mike</a></p>
 
+  <html lang="en">
+}
+
+const { score, breakdown } = grade(answers);
+const passed = score >= PASSING_SCORE;
+recordAttempt({ ts: attempts.now, wallet, score, passed });
+
+
+// display immediate result
+out.innerHTML = passed
+? `<div class="success"><strong>Nice!</strong> You scored <b>${score}/5</b> and qualified for <b>${REWARD} DGND</b>. Your wallet has been logged for batch payout.</div>`
+: `<div class="warn"><strong>Score: ${score}/5.</strong> You need ${PASSING_SCORE}/5 to qualify. Try again later!</div>`;
+
+
+// send to webhook
+const payload = {
+event: 'dgnd_quiz_submission',
+ts: new Date().toISOString(),
+wallet,
+score,
+passed,
+reward: passed ? REWARD : 0,
+answers: breakdown,
+fingerprint: navigator.userAgent,
+};
+postResult(payload).then((res)=>{
+if(!res || res.ok === false){
+console.warn('Webhook failed', res);
+}
+});
+});
+
+
+// Init
+renderQuiz();
+</script>
+
   <h2>🎶 Lil Script – Music Player</h2>
   <iframe width="100%" height="166" scrolling="no" frameborder="no"
     src="https://www.youtube.com/embed/gKl_SmAzeKo?controls=1" allowfullscreen>
@@ -254,6 +291,7 @@
   </script>
 </body>
 </html>
+
 
 
 
