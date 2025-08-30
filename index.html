@@ -58,46 +58,26 @@
       top: 16px;
       left: 16px;
       z-index: 1000;
-
       display: inline-flex;
       align-items: center;
       gap: 8px;
-
       padding: 10px 14px;
       border-radius: 12px;
       text-decoration: none;
       font-weight: 700;
       font-size: 14px;
-
       background: linear-gradient(135deg, #ffd54a, #ffb300);
       color: #111;
-
       border: 1px solid rgba(0,0,0,.25);
       box-shadow: 0 8px 18px rgba(0,0,0,.35);
       transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
     }
-    .amazon-btn:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(0,0,0,.38);
-      filter: brightness(1.04);
-    }
-    .amazon-btn:active{
-      transform: translateY(0);
-      box-shadow: 0 6px 14px rgba(0,0,0,.28);
-    }
-    .amazon-btn:focus-visible{
-      outline: 2px solid #fff;
-      outline-offset: 2px;
-    }
+    .amazon-btn:hover{ transform: translateY(-1px); box-shadow: 0 12px 24px rgba(0,0,0,.38); filter: brightness(1.04); }
+    .amazon-btn:active{ transform: translateY(0); box-shadow: 0 6px 14px rgba(0,0,0,.28); }
+    .amazon-btn:focus-visible{ outline: 2px solid #fff; outline-offset: 2px; }
     .amazon-btn .icon{ width: 18px; height: 18px; }
     @media (max-width: 480px){
-      .amazon-btn{
-        top: 8px;
-        left: 8px;
-        padding: 8px 12px;
-        border-radius: 10px;
-        font-size: 13px;
-      }
+      .amazon-btn{ top: 8px; left: 8px; padding: 8px 12px; border-radius: 10px; font-size: 13px; }
       .amazon-btn .icon{ width: 16px; height: 16px; }
     }
 
@@ -118,56 +98,42 @@
       display:inline-block;
       padding:12px 22px;
       background: linear-gradient(135deg, #22c55e, #16a34a);
-      color:#fff; font-weight:700; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:#fff; font-weight:700;
       border-radius:12px; text-decoration:none;
       box-shadow:0 6px 14px rgba(0,0,0,.15);
       transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
     }
     .gle-btn:hover{ background: linear-gradient(135deg, #16a34a, #15803d); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
     .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
+    /* Honor vs Madness button */
+    .hvm-btn{
+      display:inline-block;
+      padding:12px 22px;
+      background: linear-gradient(135deg, #60a5fa, #7c3aed);
+      color:#fff; font-weight:700;
+      border-radius:12px; text-decoration:none;
+      box-shadow:0 6px 14px rgba(0,0,0,.15);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+    }
+    .hvm-btn:hover{ background: linear-gradient(135deg, #3b82f6, #6d28d9); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+    .hvm-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
+    /* EMP Fusion button */
+    .emp-btn{
+      display:inline-block;
+      padding:12px 22px;
+      background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+      color:#fff; font-weight:700;
+      border-radius:12px; text-decoration:none;
+      box-shadow:0 6px 14px rgba(0,0,0,.15);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+    }
+    .emp-btn:hover{ background: linear-gradient(135deg, #0891b2, #0284c7); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+    .emp-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
   </style>
 </head>
-<body
-
-  /* Honor vs Madness button */
-.hvm-btn{
-  display:inline-block;
-  padding:12px 22px;
-  background: linear-gradient(135deg, #60a5fa, #7c3aed);
-  color:#fff; font-weight:700;
-  border-radius:12px; text-decoration:none;
-  box-shadow:0 6px 14px rgba(0,0,0,.15);
-  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
-}
-.hvm-btn:hover{
-  background: linear-gradient(135deg, #3b82f6, #6d28d9);
-  transform:translateY(-1px);
-  box-shadow:0 10px 20px rgba(0,0,0,.18);
-}
-.hvm-btn:active{
-  transform:translateY(0);
-  box-shadow:0 4px 10px rgba(0,0,0,.12);
-}
-
-/* EMP Fusion button */
-.emp-btn{
-  display:inline-block;
-  padding:12px 22px;
-  background: linear-gradient(135deg, #06b6d4, #0ea5e9); /* cyan → blue */
-  color:#fff; font-weight:700;
-  border-radius:12px; text-decoration:none;
-  box-shadow:0 6px 14px rgba(0,0,0,.15);
-  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
-}
-.emp-btn:hover{
-  background: linear-gradient(135deg, #0891b2, #0284c7);
-  transform:translateY(-1px);
-  box-shadow:0 10px 20px rgba(0,0,0,.18);
-}
-.emp-btn:active{
-  transform:translateY(0);
-  box-shadow:0 4px 10px rgba(0,0,0,.12);
-}
+<body>
   <!-- Amazon button -->
   <a
     class="amazon-btn"
@@ -358,20 +324,18 @@
       🚀 Enter DexFi Vault
     </a>
 
+    <a href="https://fusion.emp.money/" target="_blank" rel="noopener" class="emp-btn" aria-label="Open EMP Fusion">
+      ⚡ EMP Fusion
+    </a>
+
+    <a href="https://ake.honorvsmadness.com" target="_blank" rel="noopener" class="hvm-btn" aria-label="Open Honor vs Madness portal">
+      ⚔️ Honor vs Madness
+    </a>
+
     <a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener" class="gle-btn" aria-label="Try the GLE app">
       🌱 Try Sustayn by GLE
     </a>
   </div>
-
-  <a href="https://ake.honorvsmadness.com" target="_blank" rel="noopener" class="hvm-btn" aria-label="Open Honor vs Madness portal">
-    ⚔️ Honor vs Madness
-  </a>
-</div>
-
-    <a href="https://fusion.emp.money/" target="_blank" rel="noopener" class="emp-btn" aria-label="Open EMP Fusion">
-    ⚡ EMP Fusion
-  </a>
-</div>
 
   <script>
     /* ---------- DAPP: wallet + burned stats ---------- */
@@ -388,10 +352,7 @@
         const address = await signer.getAddress();
         document.getElementById("walletAddress").textContent = address;
 
-        const tokenABI = [
-          "function balanceOf(address) view returns (uint256)"
-        ];
-
+        const tokenABI = [ "function balanceOf(address) view returns (uint256)" ];
         const token = new ethers.Contract(tokenAddress, tokenABI, provider);
         const balance = await token.balanceOf(address);
         const formatted = ethers.utils.formatUnits(balance, tokenDecimals);
@@ -487,21 +448,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
