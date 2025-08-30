@@ -22,9 +22,7 @@
       margin-top: 10px;
       cursor: pointer;
     }
-    .wallet, iframe, .section {
-      margin-top: 2rem;
-    }
+    .wallet, iframe, .section { margin-top: 2rem; }
     iframe { border: none; }
     a { color: #ffd700; text-decoration: underline; }
     h2 { margin-top: 3rem; }
@@ -53,9 +51,98 @@
     .stat-title { font-size: 14px; opacity: 0.75; margin-bottom: 8px; }
     .stat-value { font-size: 22px; font-weight: bold; }
     .subtle { font-size: 12px; opacity: 0.65; word-break: break-all; }
+
+    /* Amazon button (fixed top-left) */
+    .amazon-btn{
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 10px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+
+      background: linear-gradient(135deg, #ffd54a, #ffb300);
+      color: #111;
+
+      border: 1px solid rgba(0,0,0,.25);
+      box-shadow: 0 8px 18px rgba(0,0,0,.35);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .amazon-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0,0,0,.38);
+      filter: brightness(1.04);
+    }
+    .amazon-btn:active{
+      transform: translateY(0);
+      box-shadow: 0 6px 14px rgba(0,0,0,.28);
+    }
+    .amazon-btn:focus-visible{
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+    .amazon-btn .icon{ width: 18px; height: 18px; }
+    @media (max-width: 480px){
+      .amazon-btn{
+        top: 8px;
+        left: 8px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 13px;
+      }
+      .amazon-btn .icon{ width: 16px; height: 16px; }
+    }
+
+    /* Partner buttons */
+    .btn-vault{
+      display:inline-block;
+      padding:12px 24px;
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+      color:#fff; font-size:16px; font-weight:700;
+      border-radius:12px; text-decoration:none; text-align:center;
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+    }
+    .btn-vault:hover{ background: linear-gradient(135deg, #ee0979, #c4006b); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+    .btn-vault:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
+    .gle-btn{
+      display:inline-block;
+      padding:12px 22px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color:#fff; font-weight:700; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      border-radius:12px; text-decoration:none;
+      box-shadow:0 6px 14px rgba(0,0,0,.15);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+    }
+    .gle-btn:hover{ background: linear-gradient(135deg, #16a34a, #15803d); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+    .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
   </style>
 </head>
 <body>
+  <!-- Amazon button -->
+  <a
+    class="amazon-btn"
+    href="https://a.co/d/6Lesmv0"
+    target="_blank"
+    rel="noopener"
+    aria-label="Buy DeFi Demystified on Amazon"
+  >
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H7a3 3 0 0 0-3 3V5.5Z" fill="currentColor"/>
+      <path d="M7 3v16a3 3 0 0 0-3 3V6a3 3 0 0 1 3-3Z" opacity=".3" fill="currentColor"/>
+    </svg>
+    DeFi Demystified
+  </a>
+
   <h1>🔥 Degends DAO Dashboard</h1>
 
   <div class="wallet">
@@ -99,133 +186,84 @@
   <h3>💸 OTC Deal Request</h3>
   <p><a href="mailto:mikevessicchio@gmail.com?subject=OTC Deal for DGND&body=Hey, I'm interested in an OTC deal. Here's my wallet address: " target="_blank">Send Email to Mike</a></p>
 
-<section id="dgnd-quiz" style="max-width:960px;margin:40px auto;padding:0 16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; text-align:left;">
-  <div style="background:#0f1722;color:#e6edf5;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)">
-    <h2 style="margin:0 0 6px;font-size:26px;text-align:left">Degends DAO — Learn‑to‑Earn Quiz</h2>
-    <p style="margin:0 0 14px;color:#9cb0c2;text-align:left">Score <b>4/5</b> or better. When you pass, your answers will be <b>emailed</b> to us for DGND rewards.</p>
+  <!-- QUIZ: email-only, bold questions, left aligned -->
+  <section id="dgnd-quiz" style="max-width:960px;margin:40px auto;padding:0 16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; text-align:left;">
+    <div style="background:#0f1722;color:#e6edf5;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)">
+      <h2 style="margin:0 0 6px;font-size:26px;text-align:left">Degends DAO — Learn-to-Earn Quiz</h2>
+      <p style="margin:0 0 14px;color:#9cb0c2;text-align:left">Score <b>4/5</b> or better. When you pass, your answers will be <b>emailed</b> to us for DGND rewards.</p>
 
-    <!-- Use FormSubmit to email you results -->
-    <form id="quizForm" action="https://formsubmit.co/mikevessicchio@gmail.com" method="POST" style="display:block">
-      <!-- FormSubmit options -->
-      <input type="hidden" name="_subject" value="DGND Quiz Submission" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-      <input type="hidden" name="_captcha" value="false" />
+      <!-- FormSubmit emails results to you -->
+      <form id="quizForm" action="https://formsubmit.co/mikevessicchio@gmail.com" method="POST" style="display:block">
+        <!-- FormSubmit options -->
+        <input type="hidden" name="_subject" value="DGND Quiz Submission" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_captcha" value="false" />
 
-      <!-- Wallet field -->
-      <div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;margin:6px 0 16px">
-        <span style="color:#9cb0c2">EVM wallet</span>
-        <input id="wallet" name="wallet" placeholder="0x…" style="flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:14px" required />
-        <button id="connect" type="button" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#e6edf5;border-radius:10px;padding:8px 10px;cursor:pointer">Connect</button>
-      </div>
+        <!-- Wallet field -->
+        <div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;margin:6px 0 16px">
+          <span style="color:#9cb0c2">EVM wallet</span>
+          <input id="wallet" name="wallet" placeholder="0x…" style="flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:14px" required />
+          <button id="connect" type="button" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#e6edf5;border-radius:10px;padding:8px 10px;cursor:pointer">Connect</button>
+        </div>
 
-      <!-- Questions (bold, left-aligned) -->
-      <ol style="padding-left:18px;margin:0">
-        <li style="margin:0 0 16px">
-          <div><b>What is the DGND token contract address?</b></div>
-          <div><label><input type="radio" name="q1" value="A" required> 0x916eC27E0db3f8beb2c784a2617014094089148A</label></div>
-          <div><label><input type="radio" name="q1" value="B"> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label></div>
-          <div><label><input type="radio" name="q1" value="C"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label></div>
-          <div><label><input type="radio" name="q1" value="D"> 0x000000000000000000000000000000000000dEaD</label></div>
-        </li>
+        <!-- Questions (bold, left-aligned) -->
+        <ol style="padding-left:18px;margin:0">
+          <li style="margin:0 0 16px">
+            <div><b>What is the DGND token contract address?</b></div>
+            <div><label><input type="radio" name="q1" value="A" required> 0x916eC27E0db3f8beb2c784a2617014094089148A</label></div>
+            <div><label><input type="radio" name="q1" value="B"> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label></div>
+            <div><label><input type="radio" name="q1" value="C"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label></div>
+            <div><label><input type="radio" name="q1" value="D"> 0x000000000000000000000000000000000000dEaD</label></div>
+          </li>
 
-        <li style="margin:0 0 16px">
-          <div><b>Which wallet is the DAO's EVM treasury?</b></div>
-          <div><label><input type="radio" name="q2" value="A" required> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label></div>
-          <div><label><input type="radio" name="q2" value="B"> 0x916eC27E0db3f8beb2c784a2617014094089148A</label></div>
-          <div><label><input type="radio" name="q2" value="C"> 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy</label></div>
-          <div><label><input type="radio" name="q2" value="D"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label></div>
-        </li>
+          <li style="margin:0 0 16px">
+            <div><b>Which wallet is the DAO's EVM treasury?</b></div>
+            <div><label><input type="radio" name="q2" value="A" required> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</label></div>
+            <div><label><input type="radio" name="q2" value="B"> 0x916eC27E0db3f8beb2c784a2617014094089148A</label></div>
+            <div><label><input type="radio" name="q2" value="C"> 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy</label></div>
+            <div><label><input type="radio" name="q2" value="D"> 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</label></div>
+          </li>
 
-        <li style="margin:0 0 16px">
-          <div><b>Degends partners with other projects to…</b></div>
-          <div><label><input type="radio" name="q3" value="A" required> Pump and dump tokens</label></div>
-          <div><label><input type="radio" name="q3" value="B"> Educate, cross‑promote, and build value for both communities</label></div>
-          <div><label><input type="radio" name="q3" value="C"> Collect private keys</label></div>
-          <div><label><input type="radio" name="q3" value="D"> Mine Bitcoin</label></div>
-        </li>
+          <li style="margin:0 0 16px">
+            <div><b>Degends partners with other projects to…</b></div>
+            <div><label><input type="radio" name="q3" value="A" required> Pump and dump tokens</label></div>
+            <div><label><input type="radio" name="q3" value="B"> Educate, cross-promote, and build value for both communities</label></div>
+            <div><label><input type="radio" name="q3" value="C"> Collect private keys</label></div>
+            <div><label><input type="radio" name="q3" value="D"> Mine Bitcoin</label></div>
+          </li>
 
-        <li style="margin:0 0 16px">
-          <div><b>True or False: You should NEVER paste your seed phrase to claim DGND rewards.</b></div>
-          <div><label><input type="radio" name="q4" value="A" required> True</label></div>
-          <div><label><input type="radio" name="q4" value="B"> False</label></div>
-        </li>
+          <li style="margin:0 0 16px">
+            <div><b>True or False: You should ever paste your seed phrase to claim DGND rewards.</b></div>
+            <div><label><input type="radio" name="q4" value="A" required> True</label></div>
+            <div><label><input type="radio" name="q4" value="B"> False</label></div>
+          </li>
 
-        <li style="margin:0 0 16px">
-          <div><b>Honor vs Madness is primarily…</b></div>
-          <div><label><input type="radio" name="q5" value="A" required> A DeFi tax tool</label></div>
-          <div><label><input type="radio" name="q5" value="B"> An Immutable‑based game partner of Degends</label></div>
-          <div><label><input type="radio" name="q5" value="C"> A stablecoin</label></div>
-          <div><label><input type="radio" name="q5" value="D"> A hardware wallet</label></div>
-        </li>
-      </ol>
+          <li style="margin:0 0 16px">
+            <div><b>Honor vs Madness is primarily…</b></div>
+            <div><label><input type="radio" name="q5" value="A" required> A DeFi tax tool</label></div>
+            <div><label><input type="radio" name="q5" value="B"> An Immutable-based game partner of Degends</label></div>
+            <div><label><input type="radio" name="q5" value="C"> A stablecoin</label></div>
+            <div><label><input type="radio" name="q5" value="D"> A hardware wallet</label></div>
+          </li>
+        </ol>
 
-      <div id="status" style="margin:12px 0 0; font-weight:600"></div>
-      <div style="display:flex;gap:10px;margin-top:10px">
-        <button type="button" id="checkBtn" style="background:linear-gradient(135deg,#22c55e,#2dd4bf);color:#04210e;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer">Check Score</button>
-        <button type="submit" id="submitBtn" disabled style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#e6edf5;border-radius:12px;padding:10px 14px;font-weight:700;cursor:not-allowed">Send Results (Email)</button>
-      </div>
+        <div id="status" style="margin:12px 0 0; font-weight:600"></div>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <button type="button" id="checkBtn" style="background:linear-gradient(135deg,#22c55e,#2dd4bf);color:#04210e;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer">Check Score</button>
+          <button type="submit" id="submitBtn" disabled style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#e6edf5;border-radius:12px;padding:10px 14px;font-weight:700;cursor:not-allowed">Send Results (Email)</button>
+        </div>
 
-      <!-- Hidden metadata sent in email -->
-      <input type="hidden" name="score" id="scoreField" />
-      <input type="hidden" name="passed" id="passedField" />
-      <input type="hidden" name="userAgent" id="uaField" />
-    </form>
+        <!-- Hidden metadata sent in email -->
+        <input type="hidden" name="score" id="scoreField" />
+        <input type="hidden" name="passed" id="passedField" />
+        <input type="hidden" name="userAgent" id="uaField" />
+      </form>
 
-    <p style="color:#9cb0c2;font-size:12px;margin-top:12px">DGND Token: 0x916eC27E0db3f8beb2c784a2617014094089148A · DAO EVM: 0x7B95b039d4B9C10772376643B1B7C496C80d0062 · Solana: 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</p>
-  </div>
-</section>
+      <p style="color:#9cb0c2;font-size:12px;margin-top:12px">DGND Token: 0x916eC27E0db3f8beb2c784a2617014094089148A · DAO EVM: 0x7B95b039d4B9C10772376643B1B7C496C80d0062 · Solana: 9VwPJchy7utZt5zP69mz6LQSWEgpN97SkxoA1i35RJPm</p>
+    </div>
+  </section>
 
-<script>
-  // Quiz logic (kept separate from your other scripts)
-  const CORRECT = { q1: 'A', q2: 'A', q3: 'B', q4: 'A', q5: 'B' };
-  const PASSING = 4; // 4/5
-
-  // Connect button (auto-fill wallet field)
-  document.getElementById('connect').addEventListener('click', async () => {
-    if (!window.ethereum) { alert('No wallet found. Install MetaMask or a compatible EVM wallet.'); return; }
-    try {
-      const [addr] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      document.getElementById('wallet').value = addr;
-    } catch (e) { console.warn(e); }
-  });
-
-  function isValidAddress(a){ return /^0x[a-fA-F0-9]{40}$/.test((a||'').trim()); }
-
-  // Score check
-  document.getElementById('checkBtn').addEventListener('click', () => {
-    const status = document.getElementById('status');
-    const wallet = document.getElementById('wallet').value.trim();
-    if (!isValidAddress(wallet)) { status.textContent = 'Enter a valid EVM address (starts with 0x…)'; status.style.color = '#ffb4b4'; return; }
-
-    const form = document.getElementById('quizForm');
-    let score = 0; const answers = {};
-    Object.keys(CORRECT).forEach(q => {
-      const sel = form.querySelector(`input[name="${q}"]:checked`);
-      const val = sel ? sel.value : null; answers[q] = val; if (val === CORRECT[q]) score++;
-    });
-
-    if (Object.values(answers).some(v => v === null)) { status.textContent = 'Please answer all questions.'; status.style.color = '#ffb4b4'; return; }
-
-    const passed = score >= PASSING;
-    status.textContent = passed ? `Nice! Score ${score}/5 — you qualify. Click "Send Results (Email)".` : `Score ${score}/5 — need ${PASSING}/5 to qualify.`;
-    status.style.color = passed ? '#5bd3a1' : '#ffb4b4';
-
-    // Fill hidden fields for email
-    document.getElementById('scoreField').value = String(score);
-    document.getElementById('passedField').value = passed ? 'true' : 'false';
-    document.getElementById('uaField').value = navigator.userAgent;
-
-    // Enable/disable submit
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = !passed;
-    submitBtn.style.cursor = passed ? 'pointer' : 'not-allowed';
-    submitBtn.style.background = passed ? 'linear-gradient(135deg,#22c55e,#2dd4bf)' : 'transparent';
-    submitBtn.style.color = passed ? '#04210e' : '#e6edf5';
-    submitBtn.style.border = passed ? 'none' : '1px solid rgba(255,255,255,.3)';
-  });
-</script>
-  
   <div class="tip-box">
     <h3>💸 Tip Lil Script</h3>
     <p>Support the artist behind the movement:</p>
@@ -237,18 +275,18 @@
 
   <div class="section">
     <h2>⚡ EMP Fusion</h2>
-    <p>EMP Fusion is a gamified DeFi ecosystem with a focus on sustainability, passive income, and community governance. DGND DAO has an active partnership with EMP including token allocations and fusion ecosystem integrations .</p>
+    <p>EMP Fusion is a gamified DeFi ecosystem with a focus on sustainability, passive income, and community governance. DGND DAO has an active partnership with EMP including token allocations and fusion ecosystem integrations.</p>
   </div>
 
   <div class="section">
-  <h2>🏙️ Alpha City ($AMETA)</h2>
-  <p>Create, explore and monetize your content in a blockchain-powered virtual world driven by Unreal Engine. DGND holds strategic treasury exposure to $AMETA to back the creator economy and social engagement narrative on Base.</p>
-</div>
+    <h2>🏙️ Alpha City ($AMETA)</h2>
+    <p>Create, explore and monetize your content in a blockchain-powered virtual world driven by Unreal Engine. DGND holds strategic treasury exposure to $AMETA to back the creator economy and social engagement narrative on Base.</p>
+  </div>
 
-<div class="section">
-  <h2>🕸️ Venom DAO ($VENOM)</h2>
-  <p>V.E.N.O.M. = Viral Engagement Network of Memes. At its core is $VENOM, the native utility token powering NFT staking incentives, DAO governance, deflationary mechanisms, and multi-tiered community engagement. VENOM tokens engaged in these programs reinforce ecosystem mechanisms and the treasury.</p>
-</div>
+  <div class="section">
+    <h2>🕸️ Venom DAO ($VENOM)</h2>
+    <p>V.E.N.O.M. = Viral Engagement Network of Memes. At its core is $VENOM, the native utility token powering NFT staking incentives, DAO governance, deflationary mechanisms, and multi-tiered community engagement.</p>
+  </div>
 
   <div class="section">
     <h2>🎮 Honor vs Madness (HvM)</h2>
@@ -257,10 +295,10 @@
 
   <div class="section">
     <h2>⚡ BERTI</h2>
-    <p>BERTI BERTI is a meme token on Avalanche (AVAX) that goes beyond hype — it’s backed by multiple revenue streams fueling long-term sustainability</p>
+    <p>BERTI is a meme token on Avalanche (AVAX) that goes beyond hype — it’s backed by multiple revenue streams fueling long-term sustainability.</p>
   </div>
 
-    <div class="section">
+  <div class="section">
     <h2>🌱 GLE</h2>
     <p>GLE is a cryptocurrency designed to fuel our sustainable ecosystem, rewarding customers and users with incentives for engaging with our innovative services and products.</p>
   </div>
@@ -272,46 +310,21 @@
 
   <hr>
 
-<h2>🤝 DGND DAO Partner Projects</h2>
-<p>Our treasury is diversified across innovative ecosystems, games, and tokens. These strategic partners strengthen the DAO and expand our reach in DeFi + Web3 culture.</p>
+  <h2>🤝 DGND DAO Partner Projects</h2>
+  <p>Our treasury is diversified across innovative ecosystems, games, and tokens. These strategic partners strengthen the DAO and expand our reach in DeFi + Web3 culture.</p>
 
- <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:24px 0;">
-  <a href="https://dexfi.com/vaults/1030" target="_blank" rel="noopener" class="btn-vault" aria-label="Enter DexFi Vault">
-    🚀 Enter DexFi Vault
-  </a>
+  <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:24px 0;">
+    <a href="https://dexfi.com/vaults/1030" target="_blank" rel="noopener" class="btn-vault" aria-label="Enter DexFi Vault">
+      🚀 Enter DexFi Vault
+    </a>
 
-  <a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener" class="gle-btn" aria-label="Try the GLE app">
-    🌱 Try Sustayn by GLE
-  </a>
-</div>
-
-<style>
-  .btn-vault{
-    display:inline-block;
-    padding:12px 24px;
-    background: linear-gradient(135deg, #ff6a00, #ee0979);
-    color:#fff; font-size:16px; font-weight:700;
-    border-radius:12px; text-decoration:none; text-align:center;
-    box-shadow:0 4px 12px rgba(0,0,0,.2);
-    transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
-  }
-  .btn-vault:hover{ background: linear-gradient(135deg, #ee0979, #c4006b); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
-  .btn-vault:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
-
-  .gle-btn{
-    display:inline-block;
-    padding:12px 22px;
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color:#fff; font-weight:700; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    border-radius:12px; text-decoration:none;
-    box-shadow:0 6px 14px rgba(0,0,0,.15);
-    transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
-  }
-  .gle-btn:hover{ background: linear-gradient(135deg, #16a34a, #15803d); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
-  .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
-</style>
+    <a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener" class="gle-btn" aria-label="Try the GLE app">
+      🌱 Try Sustayn by GLE
+    </a>
+  </div>
 
   <script>
+    /* ---------- DAPP: wallet + burned stats ---------- */
     const tokenAddress = "0x916eC27E0db3f8beb2c784a2617014094089148A";
     const tokenDecimals = 18;
     const deadWallet = "0x000000000000000000000000000000000000dEaD";
@@ -373,6 +386,54 @@
     }
 
     window.addEventListener("load", loadBurnedSupply);
+
+    /* ---------- QUIZ logic (email via FormSubmit) ---------- */
+    const CORRECT = { q1: 'A', q2: 'A', q3: 'B', q4: 'B', q5: 'B' };
+    const PASSING = 4; // 4/5
+
+    // Connect button (auto-fill wallet field inside quiz)
+    document.getElementById('connect').addEventListener('click', async () => {
+      if (!window.ethereum) { alert('No wallet found. Install MetaMask or a compatible EVM wallet.'); return; }
+      try {
+        const [addr] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        document.getElementById('wallet').value = addr;
+      } catch (e) { console.warn(e); }
+    });
+
+    function isValidAddress(a){ return /^0x[a-fA-F0-9]{40}$/.test((a||'').trim()); }
+
+    // Score check
+    document.getElementById('checkBtn').addEventListener('click', () => {
+      const status = document.getElementById('status');
+      const wallet = document.getElementById('wallet').value.trim();
+      if (!isValidAddress(wallet)) { status.textContent = 'Enter a valid EVM address (starts with 0x…)'; status.style.color = '#ffb4b4'; return; }
+
+      const form = document.getElementById('quizForm');
+      let score = 0; const answers = {};
+      Object.keys(CORRECT).forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        const val = sel ? sel.value : null; answers[q] = val; if (val === CORRECT[q]) score++;
+      });
+
+      if (Object.values(answers).some(v => v === null)) { status.textContent = 'Please answer all questions.'; status.style.color = '#ffb4b4'; return; }
+
+      const passed = score >= PASSING;
+      status.textContent = passed ? `Nice! Score ${score}/5 — you qualify. Click "Send Results (Email)".` : `Score ${score}/5 — need ${PASSING}/5 to qualify.`;
+      status.style.color = passed ? '#5bd3a1' : '#ffb4b4';
+
+      // Fill hidden fields for email
+      document.getElementById('scoreField').value = String(score);
+      document.getElementById('passedField').value = passed ? 'true' : 'false';
+      document.getElementById('uaField').value = navigator.userAgent;
+
+      // Enable/disable submit
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = !passed;
+      submitBtn.style.cursor = passed ? 'pointer' : 'not-allowed';
+      submitBtn.style.background = passed ? 'linear-gradient(135deg,#22c55e,#2dd4bf)' : 'transparent';
+      submitBtn.style.color = passed ? '#04210e' : '#e6edf5';
+      submitBtn.style.border = passed ? 'none' : '1px solid rgba(255,255,255,.3)';
+    });
   </script>
 </body>
 </html>
