@@ -127,7 +127,47 @@
     .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
   </style>
 </head>
-<body>
+<body
+
+  /* Honor vs Madness button */
+.hvm-btn{
+  display:inline-block;
+  padding:12px 22px;
+  background: linear-gradient(135deg, #60a5fa, #7c3aed);
+  color:#fff; font-weight:700;
+  border-radius:12px; text-decoration:none;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+}
+.hvm-btn:hover{
+  background: linear-gradient(135deg, #3b82f6, #6d28d9);
+  transform:translateY(-1px);
+  box-shadow:0 10px 20px rgba(0,0,0,.18);
+}
+.hvm-btn:active{
+  transform:translateY(0);
+  box-shadow:0 4px 10px rgba(0,0,0,.12);
+}
+
+/* EMP Fusion button */
+.emp-btn{
+  display:inline-block;
+  padding:12px 22px;
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9); /* cyan → blue */
+  color:#fff; font-weight:700;
+  border-radius:12px; text-decoration:none;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+}
+.emp-btn:hover{
+  background: linear-gradient(135deg, #0891b2, #0284c7);
+  transform:translateY(-1px);
+  box-shadow:0 10px 20px rgba(0,0,0,.18);
+}
+.emp-btn:active{
+  transform:translateY(0);
+  box-shadow:0 4px 10px rgba(0,0,0,.12);
+}
   <!-- Amazon button -->
   <a
     class="amazon-btn"
@@ -447,6 +487,7 @@
   </script>
 </body>
 </html>
+
 
 
 
