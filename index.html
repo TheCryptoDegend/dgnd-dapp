@@ -131,6 +131,39 @@
     }
     .emp-btn:hover{ background: linear-gradient(135deg, #0891b2, #0284c7); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
     .emp-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
+    /* NEW: Fusion Watch button */
+    .fusion-btn{
+      display:inline-block;
+      padding:12px 22px;
+      background: linear-gradient(135deg, #3a7bd5, #6a11cb);
+      color:#fff; font-weight:700;
+      border-radius:12px; text-decoration:none;
+      border:1px solid #333;
+      box-shadow:0 6px 14px rgba(0,0,0,.15);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+    }
+    .fusion-btn:hover{ background: linear-gradient(135deg, #356fc0, #5b0fb1); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+    .fusion-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
+    /* Projects table (dark theme) */
+    .projects-table-wrap{ max-width:1100px; margin:20px auto; overflow:auto; }
+    .projects-table{
+      width:100%; border-collapse:separate; border-spacing:0; min-width:720px;
+      background:#1a1a1a; border:1px solid #333; border-radius:12px; overflow:hidden;
+    }
+    .projects-table thead th{
+      background:#151515; color:#eaeaea; font-weight:700; font-size:14px;
+      text-transform:uppercase; letter-spacing:.04em;
+    }
+    .projects-table th, .projects-table td{
+      padding:14px 16px; text-align:left; border-bottom:1px solid #2a2a2a; vertical-align:top;
+    }
+    .projects-table tr:last-child td{ border-bottom:none; }
+    .projects-table td strong{ display:block; margin-bottom:4px; color:#fff; }
+    .projects-table a { color:#ffd700; text-decoration:underline; }
+    .projects-table .tag{ display:inline-block; font-size:12px; opacity:.8; padding:2px 8px; border:1px solid #2a2a2a; border-radius:999px; margin-left:6px; }
+
   </style>
 </head>
 <body>
@@ -187,7 +220,7 @@
   <p><strong>EVM:</strong> 0x7B95b039d4B9C10772376643B1B7C496C80d0062</p>
 
   <h3>📈 Price Chart</h3>
-  <iframe src="https://dexscreener.com/avalanche/0x684672f04b38ade02aebd8923c643593e24ccf7b?embed=1" width="100%" height="400"></iframe>
+  <iframe src="https://dexscreener.com/avalanche/0x684672f04b38ade02aebd8923c643593e24ccf7b?embed=1" width="100%" height="400" title="DexScreener chart"></iframe>
 
   <h3>💸 OTC Deal Request</h3>
   <p><a href="mailto:mikevessicchio@gmail.com?subject=OTC Deal for DGND&body=Hey, I'm interested in an OTC deal. Here's my wallet address: " target="_blank">Send Email to Mike</a></p>
@@ -279,46 +312,12 @@
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0x78d4cf99cEEca2783681DEBbb5e103b2c25D0DFc" alt="Tip QR Code">
   </div>
 
-  <div class="section">
-    <h2>⚡ EMP Fusion</h2>
-    <p>EMP Fusion is a gamified DeFi ecosystem with a focus on sustainability, passive income, and community governance. DGND DAO has an active partnership with EMP including token allocations and fusion ecosystem integrations.</p>
-  </div>
-
-  <div class="section">
-    <h2>🏙️ Alpha City ($AMETA)</h2>
-    <p>Create, explore and monetize your content in a blockchain-powered virtual world driven by Unreal Engine. DGND holds strategic treasury exposure to $AMETA to back the creator economy and social engagement narrative on Base.</p>
-  </div>
-
-  <div class="section">
-    <h2>🕸️ Venom DAO ($VENOM)</h2>
-    <p>V.E.N.O.M. = Viral Engagement Network of Memes. At its core is $VENOM, the native utility token powering NFT staking incentives, DAO governance, deflationary mechanisms, and multi-tiered community engagement.</p>
-  </div>
-
-  <div class="section">
-    <h2>🎮 Honor vs Madness (HvM)</h2>
-    <p>Honor vs Madness is a tactical strategy game powered by ImmutableX. DGND is a lore-integrated partner, with NFT perks and exclusive airdrops. Our treasury has direct exposure to HvM for long-term growth and narrative alignment.</p>
-  </div>
-
-  <div class="section">
-    <h2>⚡ BERTI</h2>
-    <p>BERTI is a meme token on Avalanche (AVAX) that goes beyond hype — it’s backed by multiple revenue streams fueling long-term sustainability.</p>
-  </div>
-
-  <div class="section">
-    <h2>🌱 GLE</h2>
-    <p>GLE is a cryptocurrency designed to fuel our sustainable ecosystem, rewarding customers and users with incentives for engaging with our innovative services and products.</p>
-  </div>
-
-  <div class="section">
-    <h2>🤖 SyntraFi</h2>
-    <p>SyntraFi offers signals on various Crypto/Defi projects. DGND has donated tokens to the SyntraFi team in good faith to open collaborative tools for our DAO. Expect joint bot use, alerts, and channel monetization to increase revenue for holders.</p>
-  </div>
-
   <hr>
 
   <h2>🤝 DGND DAO Partner Projects</h2>
   <p>Our treasury is diversified across innovative ecosystems, games, and tokens. These strategic partners strengthen the DAO and expand our reach in DeFi + Web3 culture.</p>
 
+  <!-- Partner Buttons Row -->
   <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:24px 0;">
     <a href="https://dexfi.com/vaults/1030" target="_blank" rel="noopener" class="btn-vault" aria-label="Enter DexFi Vault">
       🚀 Enter DexFi Vault
@@ -335,6 +334,60 @@
     <a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener" class="gle-btn" aria-label="Try the GLE app">
       🌱 Try Sustayn by GLE
     </a>
+
+    <a href="https://fusion-watch.com/" target="_blank" rel="noopener" class="fusion-btn" aria-label="Open Fusion Watch partner links">
+      👀 Fusion Watch
+    </a>
+  </div>
+
+  <!-- Projects Table -->
+  <div class="projects-table-wrap">
+    <table class="projects-table" role="table" aria-label="DGND Partner Projects Table">
+      <thead>
+        <tr>
+          <th style="width:180px;">Project</th>
+          <th>Summary</th>
+          <th style="width:180px;">Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EMP Fusion</strong> <span class="tag">DeFi</span></td>
+          <td>Gamified DeFi with a focus on sustainability, passive income, and community governance. DGND DAO has an active partnership including allocations and ecosystem integrations.</td>
+          <td><a href="https://fusion.emp.money/" target="_blank" rel="noopener">fusion.emp.money</a></td>
+        </tr>
+        <tr>
+          <td><strong>Alpha City ($AMETA)</strong> <span class="tag">Creator / Base</span></td>
+          <td>Unreal-powered virtual world for creating, exploring, and monetizing content. DGND holds strategic exposure supporting the creator economy narrative on Base.</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Venom DAO ($VENOM)</strong> <span class="tag">Memes / DAO</span></td>
+          <td>“Viral Engagement Network of Memes” with NFT staking incentives, governance and deflationary mechanics to incentivize community growth.</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Honor vs Madness (HvM)</strong> <span class="tag">Game / Immutable</span></td>
+          <td>Tactical strategy game on ImmutableX. DGND is a lore-integrated partner with NFT perks and exclusive airdrops; treasury exposure aligns long-term incentives.</td>
+          <td><a href="https://stake.honorvsmadness.com" target="_blank" rel="noopener">stake.honorvsmadness.com</a></td>
+        </tr>
+        <tr>
+          <td><strong>BERTI</strong> <span class="tag">Meme / AVAX</span></td>
+          <td>Meme token on Avalanche backed by multiple revenue streams to drive sustainability beyond hype.</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>GLE</strong> <span class="tag">Sustainability</span></td>
+          <td>Token powering a sustainable ecosystem; rewards customers and users for engaging with eco-focused services and products.</td>
+          <td><a href="https://tinyurl.com/48fn276z" target="_blank" rel="noopener">Try Sustayn by GLE</a></td>
+        </tr>
+        <tr>
+          <td><strong>SyntraFi</strong> <span class="tag">Signals</span></td>
+          <td>Signals and tooling for crypto/DeFi. DGND donates tokens to enable collaborative bots, alerts, and monetized channels for holder revenue.</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <script>
@@ -448,4 +501,3 @@
   </script>
 </body>
 </html>
-
