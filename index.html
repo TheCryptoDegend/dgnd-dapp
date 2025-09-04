@@ -106,6 +106,46 @@
     .gle-btn:hover{ background: linear-gradient(135deg, #16a34a, #15803d); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
     .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
 
+    /* Alpha City ($AMETA) button */
+.ameta-btn{
+  display:inline-block;
+  padding:12px 22px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color:#111; font-weight:700;
+  border-radius:12px; text-decoration:none;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+  border:1px solid rgba(0,0,0,.2);
+}
+.ameta-btn:hover{ background: linear-gradient(135deg, #fb923c, #ea580c); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+.ameta-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
+/* Telegram banner */
+.tg-banner{
+  max-width:1000px; margin:28px auto 0; padding:18px 20px;
+  background:linear-gradient(135deg, #0ea5e9, #2563eb);
+  color:#fff; border-radius:14px; border:1px solid rgba(255,255,255,.12);
+  display:flex; align-items:center; gap:14px; justify-content:space-between;
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+}
+.tg-banner a{ color:#fff; text-decoration:none; font-weight:800; }
+.tg-banner .cta{
+  display:inline-flex; align-items:center; gap:8px;
+  background:#111; color:#fff; padding:10px 14px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.2);
+}
+.tg-banner small{ opacity:.9 }
+.leader-btn{
+  position: fixed; top: 16px; right: 16px; z-index: 1000;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:12px; font-weight:700; font-size:14px;
+  background:linear-gradient(135deg,#22c55e,#2dd4bf); color:#04210e;
+  border:1px solid rgba(0,0,0,.25); box-shadow:0 8px 18px rgba(0,0,0,.35);
+  text-decoration:none; transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.leader-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(0,0,0,.38); filter:brightness(1.04); }
+
+
     /* Honor vs Madness button */
     .hvm-btn{
       display:inline-block;
@@ -183,6 +223,15 @@
   </a>
 
   <h1>🔥 Degends DAO Dashboard</h1>
+  <div class="tg-banner" role="region" aria-label="Join The Degend's Den">
+  <div>
+    <strong>Join The Degend’s Den</strong>
+    <div><small>Alpha, airdrops, OTC info, and community builds.</small></div>
+  </div>
+  <a class="cta" href="https://t.me/+BoqVjH6M_BkwNmY5" target="_blank" rel="noopener" aria-label="Open The Degend's Den on Telegram">
+    💬 Open Telegram
+  </a>
+</div>
 
   <div class="wallet">
     <button onclick="connectWallet()">Connect Wallet</button>
@@ -338,6 +387,10 @@
     <a href="https://fusion-watch.com/" target="_blank" rel="noopener" class="fusion-btn" aria-label="Open Fusion Watch partner links">
       👀 Fusion Watch
     </a>
+
+    <a href="https://alphacitymeta.com/" target="_blank" rel="noopener" class="ameta-btn" aria-label="Open Alpha City ($AMETA)">
+  🏙️ Alpha City ($AMETA)
+</a>
   </div>
 
   <!-- Projects Table -->
@@ -359,7 +412,7 @@
         <tr>
           <td><strong>Alpha City ($AMETA)</strong> <span class="tag">Creator / Base</span></td>
           <td>Unreal-powered virtual world for creating, exploring, and monetizing content. DGND holds strategic exposure supporting the creator economy narrative on Base.</td>
-          <td>—</td>
+          <td><a href="https://alphacitymeta.com/" target="_blank" rel="noopener">alphacitymeta.com</a></td>
         </tr>
         <tr>
           <td><strong>Venom DAO ($VENOM)</strong> <span class="tag">Memes / DAO</span></td>
@@ -501,3 +554,4 @@
   </script>
 </body>
 </html>
+
