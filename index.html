@@ -107,44 +107,45 @@
     .gle-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
 
     /* Alpha City ($AMETA) button */
-.ameta-btn{
-  display:inline-block;
-  padding:12px 22px;
-  background: linear-gradient(135deg, #f59e0b, #f97316);
-  color:#111; font-weight:700;
-  border-radius:12px; text-decoration:none;
-  box-shadow:0 6px 14px rgba(0,0,0,.15);
-  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
-  border:1px solid rgba(0,0,0,.2);
-}
-.ameta-btn:hover{ background: linear-gradient(135deg, #fb923c, #ea580c); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
-.ameta-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+    .ameta-btn{
+      display:inline-block;
+      padding:12px 22px;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      color:#111; font-weight:700;
+      border-radius:12px; text-decoration:none;
+      box-shadow:0 6px 14px rgba(0,0,0,.15);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+      border:1px solid rgba(0,0,0,.2);
+    }
+    .ameta-btn:hover{ background: linear-gradient(135deg, #fb923c, #ea580c); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+    .ameta-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
 
-/* Telegram banner */
-.tg-banner{
-  max-width:1000px; margin:28px auto 0; padding:18px 20px;
-  background:linear-gradient(135deg, #0ea5e9, #2563eb);
-  color:#fff; border-radius:14px; border:1px solid rgba(255,255,255,.12);
-  display:flex; align-items:center; gap:14px; justify-content:space-between;
-  box-shadow:0 10px 24px rgba(0,0,0,.25);
-}
-.tg-banner a{ color:#fff; text-decoration:none; font-weight:800; }
-.tg-banner .cta{
-  display:inline-flex; align-items:center; gap:8px;
-  background:#111; color:#fff; padding:10px 14px; border-radius:12px;
-  border:1px solid rgba(255,255,255,.2);
-}
-.tg-banner small{ opacity:.9 }
-.leader-btn{
-  position: fixed; top: 16px; right: 16px; z-index: 1000;
-  display:inline-flex; align-items:center; gap:8px;
-  padding:10px 14px; border-radius:12px; font-weight:700; font-size:14px;
-  background:linear-gradient(135deg,#22c55e,#2dd4bf); color:#04210e;
-  border:1px solid rgba(0,0,0,.25); box-shadow:0 8px 18px rgba(0,0,0,.35);
-  text-decoration:none; transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
-}
-.leader-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(0,0,0,.38); filter:brightness(1.04); }
+    /* Telegram banner */
+    .tg-banner{
+      max-width:1000px; margin:28px auto 0; padding:18px 20px;
+      background:linear-gradient(135deg, #0ea5e9, #2563eb);
+      color:#fff; border-radius:14px; border:1px solid rgba(255,255,255,.12);
+      display:flex; align-items:center; gap:14px; justify-content:space-between;
+      box-shadow:0 10px 24px rgba(0,0,0,.25);
+    }
+    .tg-banner a{ color:#fff; text-decoration:none; font-weight:800; }
+    .tg-banner .cta{
+      display:inline-flex; align-items:center; gap:8px;
+      background:#111; color:#fff; padding:10px 14px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.2);
+    }
+    .tg-banner small{ opacity:.9 }
 
+    /* Leaderboard button (fixed top-right) */
+    .leader-btn{
+      position: fixed; top: 16px; right: 16px; z-index: 1000;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:12px; font-weight:700; font-size:14px;
+      background:linear-gradient(135deg,#22c55e,#2dd4bf); color:#04210e;
+      border:1px solid rgba(0,0,0,.25); box-shadow:0 8px 18px rgba(0,0,0,.35);
+      text-decoration:none; transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .leader-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(0,0,0,.38); filter:brightness(1.04); }
 
     /* Honor vs Madness button */
     .hvm-btn{
@@ -203,7 +204,6 @@
     .projects-table td strong{ display:block; margin-bottom:4px; color:#fff; }
     .projects-table a { color:#ffd700; text-decoration:underline; }
     .projects-table .tag{ display:inline-block; font-size:12px; opacity:.8; padding:2px 8px; border:1px solid #2a2a2a; border-radius:999px; margin-left:6px; }
-
   </style>
 </head>
 <body>
@@ -222,16 +222,21 @@
     DeFi Demystified
   </a>
 
+  <!-- Leaderboard button -->
+  <a class="leader-btn" href="leaderboard.html" aria-label="Open DGND Leaderboard">🏆 Leaderboard</a>
+
   <h1>🔥 Degends DAO Dashboard</h1>
+
+  <!-- Telegram banner -->
   <div class="tg-banner" role="region" aria-label="Join The Degend's Den">
-  <div>
-    <strong>Join The Degend’s Den</strong>
-    <div><small>Alpha, airdrops, OTC info, and community builds.</small></div>
+    <div>
+      <strong>Join The Degend’s Den</strong>
+      <div><small>Alpha, airdrops, OTC info, and community builds.</small></div>
+    </div>
+    <a class="cta" href="https://t.me/+BoqVjH6M_BkwNmY5" target="_blank" rel="noopener" aria-label="Open The Degend's Den on Telegram">
+      💬 Open Telegram
+    </a>
   </div>
-  <a class="cta" href="https://t.me/+BoqVjH6M_BkwNmY5" target="_blank" rel="noopener" aria-label="Open The Degend's Den on Telegram">
-    💬 Open Telegram
-  </a>
-</div>
 
   <div class="wallet">
     <button onclick="connectWallet()">Connect Wallet</button>
@@ -274,15 +279,13 @@
   <h3>💸 OTC Deal Request</h3>
   <p><a href="mailto:mikevessicchio@gmail.com?subject=OTC Deal for DGND&body=Hey, I'm interested in an OTC deal. Here's my wallet address: " target="_blank">Send Email to Mike</a></p>
 
-  <!-- QUIZ: email-only, bold questions, left aligned -->
+  <!-- QUIZ -->
   <section id="dgnd-quiz" style="max-width:960px;margin:40px auto;padding:0 16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; text-align:left;">
     <div style="background:#0f1722;color:#e6edf5;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)">
       <h2 style="margin:0 0 6px;font-size:26px;text-align:left">Degends DAO — Learn-to-Earn Quiz</h2>
       <p style="margin:0 0 14px;color:#9cb0c2;text-align:left">Score <b>4/5</b> or better. When you pass, your answers will be <b>emailed</b> to us for DGND rewards.</p>
 
-      <!-- FormSubmit emails results to you -->
       <form id="quizForm" action="https://formsubmit.co/mikevessicchio@gmail.com" method="POST" style="display:block">
-        <!-- FormSubmit options -->
         <input type="hidden" name="_subject" value="DGND Quiz Submission" />
         <input type="hidden" name="_template" value="table" />
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
@@ -295,7 +298,7 @@
           <button id="connect" type="button" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#e6edf5;border-radius:10px;padding:8px 10px;cursor:pointer">Connect</button>
         </div>
 
-        <!-- Questions (bold, left-aligned) -->
+        <!-- Questions -->
         <ol style="padding-left:18px;margin:0">
           <li style="margin:0 0 16px">
             <div><b>What is the DGND token contract address?</b></div>
@@ -342,7 +345,7 @@
           <button type="submit" id="submitBtn" disabled style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#e6edf5;border-radius:12px;padding:10px 14px;font-weight:700;cursor:not-allowed">Send Results (Email)</button>
         </div>
 
-        <!-- Hidden metadata sent in email -->
+        <!-- Hidden metadata -->
         <input type="hidden" name="score" id="scoreField" />
         <input type="hidden" name="passed" id="passedField" />
         <input type="hidden" name="userAgent" id="uaField" />
@@ -389,8 +392,8 @@
     </a>
 
     <a href="https://alphacitymeta.com/" target="_blank" rel="noopener" class="ameta-btn" aria-label="Open Alpha City ($AMETA)">
-  🏙️ Alpha City ($AMETA)
-</a>
+      🏙️ Alpha City ($AMETA)
+    </a>
   </div>
 
   <!-- Projects Table -->
@@ -456,7 +459,9 @@
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
+
         document.getElementById("walletAddress").textContent = address;
+        localStorage.setItem("myWallet", address); // persist for leaderboard highlighting
 
         const tokenABI = [ "function balanceOf(address) view returns (uint256)" ];
         const token = new ethers.Contract(tokenAddress, tokenABI, provider);
@@ -538,7 +543,7 @@
       status.textContent = passed ? `Nice! Score ${score}/5 — you qualify. Click "Send Results (Email)".` : `Score ${score}/5 — need ${PASSING}/5 to qualify.`;
       status.style.color = passed ? '#5bd3a1' : '#ffb4b4';
 
-      // Fill hidden fields for email
+      // Hidden fields for email
       document.getElementById('scoreField').value = String(score);
       document.getElementById('passedField').value = passed ? 'true' : 'false';
       document.getElementById('uaField').value = navigator.userAgent;
@@ -552,12 +557,6 @@
       submitBtn.style.border = passed ? 'none' : '1px solid rgba(255,255,255,.3)';
     });
   </script>
-  <script>
-  // After you acquire `address` in connectWallet():
-  // Add this line right after setting #walletAddress:
-  // localStorage.setItem("myWallet", address);
-</script>
 </body>
 </html>
-
 
