@@ -4,7 +4,6 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>DGND Leaderboard</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
   <style>
     :root{
       --bg:#111; --panel:#1a1a1a; --panel2:#151515; --text:#f5f5f5;
@@ -19,6 +18,7 @@
       display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;
       text-decoration:none;font-weight:700;border:1px solid rgba(0,0,0,.25);
       box-shadow:0 8px 18px rgba(0,0,0,.35);transition:transform .12s, box-shadow .12s, filter .12s;
+      font-size:14px;
     }
     .btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04210e}
     .btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(0,0,0,.38)}
@@ -51,7 +51,7 @@
     <div class="brand">🏆 DGND Leaderboard</div>
     <div style="display:flex;gap:8px">
       <a class="btn-link" href="index.html" aria-label="Back to Dashboard">↩️ Dashboard</a>
-      <a class="btn" href="https://a.co/d/6Lesmv0" target="_blank" rel="noopener">📘 DeFi Demystified</a>
+      <a class="btn" href="https://a.co/d/6Lesmv0" target="_blank" rel="noopener" aria-label="Buy DeFi Demystified on Amazon">📘 DeFi Demystified</a>
     </div>
   </header>
 
@@ -61,7 +61,7 @@
       <p class="muted">Data loads from <code class="addr">leaderboard.json</code>. Your connected wallet is highlighted automatically.</p>
 
       <div class="searchbar">
-        <input id="q" placeholder="Search wallet (0x…), label, or ENS (if you add labels)"/>
+        <input id="q" placeholder="Search wallet (0x…), label, or ENS (if labeled)"/>
         <span class="pill">Showing <b id="count">0</b> entries</span>
       </div>
 
@@ -88,7 +88,8 @@
   </main>
 
   <script>
-    const SRC = "leaderboard.json"; // same folder as this HTML
+    // Path to your JSON data (same folder as this HTML)
+    const SRC = "leaderboard.json";
 
     const fmtAddr = a => a ? (a.slice(0,6) + "…" + a.slice(-4)) : "";
     const norm = s => (s||"").toLowerCase();
@@ -96,6 +97,7 @@
     async function load() {
       try {
         const res = await fetch(SRC, {cache:"no-store"});
+        if (!res.ok) throw new Error("HTTP " + res.status);
         const raw = await res.json();
 
         // Expect array of {address: string, score: number, label?: string}
@@ -113,8 +115,9 @@
           const f = norm(filter);
           tbody.innerHTML = "";
           let shown = 0;
+
           data.forEach((row, i) => {
-            const addr = row.address;
+            const addr = row.address || "";
             const label = row.label || "";
             const score = Number(row.score)||0;
 
@@ -131,22 +134,26 @@
             tr.innerHTML = `
               <td>${i+1}</td>
               <td>
-                <div class="addr">${fmtAddr(addr)} ${isMe ? '<span class="tag">You</span>' : (label ? '<span class="tag">'+label+'</span>' : '')}</div>
+                <div class="addr">${fmtAddr(addr)}
+                  ${isMe ? '<span class="tag">You</span>' : (label ? '<span class="tag">'+label+'</span>' : '')}
+                </div>
               </td>
               <td class="right"><strong>${score.toLocaleString()}</strong></td>
             `;
             tbody.appendChild(tr);
             shown++;
           });
+
           count.textContent = String(shown);
           if (!shown) tbody.innerHTML = `<tr><td colspan="3" class="muted">No matches.</td></tr>`;
         }
 
         render();
         q.addEventListener("input", e => render(e.target.value));
+
       } catch (e) {
         document.getElementById("rows").innerHTML =
-          `<tr><td colspan="3" class="muted">Could not load leaderboard.json</td></tr>`;
+          `<tr><td colspan="3" class="muted">Could not load <code>leaderboard.json</code>. Check file path/hosting.</td></tr>`;
         console.error(e);
       }
     }
