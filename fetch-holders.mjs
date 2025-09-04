@@ -45,3 +45,34 @@ async function main() {
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
+name: Build Leaderboard JSON
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"  # every 30 minutes; adjust as needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node -e "console.log('node ok')"
+      - run: node --version
+      - run: npm --version
+      - run: node fetch-holders.mjs
+        env:
+          COVALENT_API_KEY: ${{ secrets.COVALENT_API_KEY }}
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/leaderboard.json
+          git commit -m "chore: update leaderboard.json [skip ci]" || echo "no changes"
+          git push
+
