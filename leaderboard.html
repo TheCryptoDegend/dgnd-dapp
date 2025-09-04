@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>DGND Leaderboard</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <style>
+    :root{
+      --bg:#111; --panel:#1a1a1a; --panel2:#151515; --text:#f5f5f5;
+      --muted:#a3a3a3; --accent:#22c55e; --accent2:#2dd4bf; --gold:#ffd700;
+      --stroke:#2a2a2a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;background:rgba(17,17,17,.8);backdrop-filter:blur(6px);border-bottom:1px solid #222}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .btn, .btn-link{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;
+      text-decoration:none;font-weight:700;border:1px solid rgba(0,0,0,.25);
+      box-shadow:0 8px 18px rgba(0,0,0,.35);transition:transform .12s, box-shadow .12s, filter .12s;
+    }
+    .btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04210e}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(0,0,0,.38)}
+    .btn-link{background:linear-gradient(135deg,#ffd54a,#ffb300);color:#111}
+    main{max-width:1100px;margin:24px auto;padding:0 16px}
+    .panel{background:var(--panel);border:1px solid var(--stroke);border-radius:14px;padding:16px}
+    h1{margin:0 0 8px}
+    .muted{color:var(--muted);font-size:14px}
+    .wrap{overflow:auto;margin-top:16px}
+    table{width:100%;border-collapse:separate;border-spacing:0;min-width:720px;
+      background:var(--panel);border:1px solid var(--stroke);border-radius:12px;overflow:hidden}
+    thead th{background:var(--panel2);text-transform:uppercase;font-size:13px;letter-spacing:.04em}
+    th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--stroke);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    .you{background:rgba(34,197,94,.10)}
+    .tag{display:inline-block;font-size:12px;padding:2px 8px;border:1px solid var(--stroke);border-radius:999px;opacity:.85}
+    .addr{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+    .right{text-align:right}
+    .searchbar{display:flex;gap:8px;margin:12px 0}
+    .searchbar input{
+      flex:1;background:#0f0f0f;border:1px solid #242424;color:#fff;border-radius:10px;padding:10px 12px
+    }
+    .pill{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:#ddd}
+    .pill b{color:#fff}
+    tfoot td{background:#101010}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">🏆 DGND Leaderboard</div>
+    <div style="display:flex;gap:8px">
+      <a class="btn-link" href="index.html" aria-label="Back to Dashboard">↩️ Dashboard</a>
+      <a class="btn" href="https://a.co/d/6Lesmv0" target="_blank" rel="noopener">📘 DeFi Demystified</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h1>Top Holders & Contributors</h1>
+      <p class="muted">Data loads from <code class="addr">leaderboard.json</code>. Your connected wallet is highlighted automatically.</p>
+
+      <div class="searchbar">
+        <input id="q" placeholder="Search wallet (0x…), label, or ENS (if you add labels)"/>
+        <span class="pill">Showing <b id="count">0</b> entries</span>
+      </div>
+
+      <div class="wrap">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th style="width:80px">Rank</th>
+              <th>Wallet / Label</th>
+              <th class="right" style="width:160px">Score</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr><td colspan="3" class="muted">Loading…</td></tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="muted">Tip Lil Script: <span class="addr">0x78d4cf99cEEca2783681DEBbb5e103b2c25D0DFc</span></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const SRC = "leaderboard.json"; // same folder as this HTML
+
+    const fmtAddr = a => a ? (a.slice(0,6) + "…" + a.slice(-4)) : "";
+    const norm = s => (s||"").toLowerCase();
+
+    async function load() {
+      try {
+        const res = await fetch(SRC, {cache:"no-store"});
+        const raw = await res.json();
+
+        // Expect array of {address: string, score: number, label?: string}
+        const data = (Array.isArray(raw) ? raw : []).filter(x => x && x.address);
+
+        // Sort by score desc
+        data.sort((a,b) => (b.score||0) - (a.score||0));
+
+        const me = (localStorage.getItem("myWallet")||"").toLowerCase();
+        const tbody = document.getElementById("rows");
+        const q = document.getElementById("q");
+        const count = document.getElementById("count");
+
+        function render(filter=""){
+          const f = norm(filter);
+          tbody.innerHTML = "";
+          let shown = 0;
+          data.forEach((row, i) => {
+            const addr = row.address;
+            const label = row.label || "";
+            const score = Number(row.score)||0;
+
+            // Filter
+            if (f) {
+              const hay = norm(addr + " " + label);
+              if (!hay.includes(f)) return;
+            }
+
+            const tr = document.createElement("tr");
+            const isMe = me && addr.toLowerCase() === me;
+            if (isMe) tr.classList.add("you");
+
+            tr.innerHTML = `
+              <td>${i+1}</td>
+              <td>
+                <div class="addr">${fmtAddr(addr)} ${isMe ? '<span class="tag">You</span>' : (label ? '<span class="tag">'+label+'</span>' : '')}</div>
+              </td>
+              <td class="right"><strong>${score.toLocaleString()}</strong></td>
+            `;
+            tbody.appendChild(tr);
+            shown++;
+          });
+          count.textContent = String(shown);
+          if (!shown) tbody.innerHTML = `<tr><td colspan="3" class="muted">No matches.</td></tr>`;
+        }
+
+        render();
+        q.addEventListener("input", e => render(e.target.value));
+      } catch (e) {
+        document.getElementById("rows").innerHTML =
+          `<tr><td colspan="3" class="muted">Could not load leaderboard.json</td></tr>`;
+        console.error(e);
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
