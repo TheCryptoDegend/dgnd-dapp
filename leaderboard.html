@@ -120,3 +120,74 @@
             </a>
           </td>
           <td style="text-align:right">${fmtBalance(holder.balance)}</td>
+
+            function explorerLinks(address){
+    const links = [];
+    if (/^0x[a-fA-F0-9]{40}$/.test(address)) {
+      links.push({
+        name: 'Snowtrace',
+        url: `https://snowtrace.io/address/${address}`
+      });
+      links.push({
+        name: 'Avascan',
+        url: `https://avascan.info/blockchain/c/address/${address}`
+      });
+    }
+    return links;
+  }
+
+  function copyToClipboard(text){
+    navigator.clipboard?.writeText(text).then(
+      () => alert('Address copied to clipboard'),
+      () => alert('Copy failed — you can select the text manually.')
+    );
+  }
+
+  function rowHTML(holder, rank, highlight){
+    const addr = (holder?.address || '').toLowerCase();
+    const bal = Number(holder?.balance ?? 0);
+    const links = explorerLinks(addr);
+    const explorerHTML = links.length
+      ? links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.name}</a>`).join(' · ')
+      : '<span style="opacity:.7">invalid address</span>';
+
+    return `
+      <tr class="${highlight ? 'me' : ''}" data-address="${addr}">
+        <td>${rank}</td>
+        <td>
+          <code title="${addr}">${addr ? (addr.slice(0,6)+'…'+addr.slice(-4)) : '—'}</code>
+          <button
+            style="margin-left:8px;padding:4px 8px;border:1px solid #2a2a2a;border-radius:8px;background:#181818;color:#e5e5e5;cursor:pointer"
+            onclick="copyToClipboard('${addr}')"
+            aria-label="Copy address"
+          >Copy</button>
+          <div style="margin-top:6px">${explorerHTML}</div>
+        </td>
+        <td style="text-align:right">${fmtBalance(bal)}</td>
+      </tr>
+    `;
+  }
+
+  async function load(){
+    try {
+      const res = await fetch(LB_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      all = Array.isArray(data.holders) ? data.holders.filter(h => h && h.address) : [];
+      window._lbUpdatedAt = data.updatedAt || null;
+
+      // ensure sort
+      all.sort((a,b) => Number(b.balance||0) - Number(a.balance||0));
+
+      view = all;
+      renderReset();
+      renderMore();
+      updateMeta(window._lbUpdatedAt);
+    } catch (e) {
+      console.error(e);
+      meta.textContent = 'Failed to load leaderboard. Make sure this page is served over HTTP(S) and LB_URL points to a valid JSON.';
+    }
+  }
+
+  // ... keep the rest of your code
+</script>
