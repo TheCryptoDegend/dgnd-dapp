@@ -8,10 +8,7 @@
     body { font-family: Arial, sans-serif; background:#111; color:#f5f5f5; margin:0; padding:24px; }
     a { color:#ffd700; text-decoration:underline; }
     .wrap{ max-width:1100px; margin:0 auto; }
-    .topbar{
-      display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      margin-bottom:12px;
-    }
+    .topbar{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:12px; }
     .actions{ display:flex; gap:10px; flex-wrap:wrap; }
     input[type="text"]{
       background:#181818; color:#fff; border:1px solid #2a2a2a; border-radius:12px;
@@ -21,9 +18,7 @@
       padding:10px 14px; border:none; border-radius:12px; font-weight:700; cursor:pointer;
       background:linear-gradient(135deg,#22c55e,#2dd4bf); color:#04210e;
     }
-    button.secondary{
-      background:#181818; color:#e5e5e5; border:1px solid #2a2a2a;
-    }
+    button.secondary{ background:#181818; color:#e5e5e5; border:1px solid #2a2a2a; }
     .meta{ color:#9cb0c2; font-size:14px; margin-bottom:10px; }
     .table-wrap{ overflow:auto; border-radius:12px; border:1px solid #333; background:#1a1a1a; }
     table{ width:100%; border-collapse:separate; border-spacing:0; min-width:720px; }
@@ -74,120 +69,166 @@
     </div>
 
     <div class="note">
-      Data comes from your GitHub Action (Covalent → <code>leaderboard.json</code>). The list is pre-sorted by balance desc.
+      Data comes from your GitHub Action (Covalent → <code>leaderboard.json</code>). The list is pre-sorted by balance (desc).
     </div>
   </div>
 
   <script>
-    // ====== CONFIG: set this path to where your JSON is hosted ======
-    // If Pages serves from /docs and this file lives in /docs with the JSON:
+    // ====== CONFIG ======
+    // If this file and leaderboard.json live together (e.g., /docs on GitHub Pages):
     const LB_URL = './leaderboard.json';
-    // If Pages serves from root and JSON is at /leaderboard.json:
-    // const LB_URL = '/leaderboard.json';
+    // If the JSON is at the site root, use: const LB_URL = '/leaderboard.json';
 
     const PAGE_SIZE = 50;
-    let all = [];        // full dataset
-    let view = [];       // filtered (search) view
+    let all = [];        // full dataset [{ address, balance }]
+    let view = [];       // filtered list (for search)
     let cursor = 0;      // pagination cursor
     let myWallet = (localStorage.getItem('myWallet') || '').toLowerCase();
 
-    const tbody = document.getElementById('tbody');
-    const meta  = document.getElementById('meta');
-    const more  = document.getElementById('more');
+    // DOM
+    const tbody  = document.getElementById('tbody');
+    const meta   = document.getElementById('meta');
+    const more   = document.getElementById('more');
     const search = document.getElementById('search');
     const jump   = document.getElementById('jump');
     const clear  = document.getElementById('clear');
 
+    // Utils
     function fmtBalance(x){
       return Number(x).toLocaleString(undefined, { maximumFractionDigits: 6 });
     }
+    function shortAddr(a){ return a ? (a.slice(0, 6) + '…' + a.slice(-4)) : '—'; }
 
-    function shortAddr(a){
-      return a.slice(0, 6) + '…' + a.slice(-4);
+    function explorerLinks(address){
+      if (!/^0x[a-fA-F0-9]{40}$/.test(address)) return [];
+      return [
+        { name: 'Snowtrace', url: `https://snowtrace.io/address/${address}` },
+        { name: 'Avascan',   url: `https://avascan.info/blockchain/c/address/${address}` }
+      ];
     }
 
-    function explorerLink(address){
-      return `https://snowtrace.io/address/${address}`;
+    function copyToClipboard(text){
+      navigator.clipboard?.writeText(text).then(
+        () => alert('Address copied to clipboard'),
+        () => alert('Copy failed — you can select the text manually.')
+      );
     }
 
     function rowHTML(holder, rank, highlight){
+      const addr = (holder?.address || '').toLowerCase();
+      const bal  = Number(holder?.balance ?? 0);
+      const links = explorerLinks(addr);
+      const explorerHTML = links.length
+        ? links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.name}</a>`).join(' · ')
+        : '<span style="opacity:.7">invalid address</span>';
+
       return `
-        <tr class="${highlight ? 'me' : ''}" data-address="${holder.address}">
+        <tr class="${highlight ? 'me' : ''}" data-address="${addr}">
           <td>${rank}</td>
           <td>
-            <a href="${explorerLink(holder.address)}" target="_blank" rel="noopener">
-              <code>${shortAddr(holder.address)}</code>
-            </a>
+            <code title="${addr}">${shortAddr(addr)}</code>
+            <button
+              style="margin-left:8px;padding:4px 8px;border:1px solid #2a2a2a;border-radius:8px;background:#181818;color:#e5e5e5;cursor:pointer"
+              onclick="(${copyToClipboard.toString()})('${addr}')"
+              aria-label="Copy address"
+            >Copy</button>
+            <div style="margin-top:6px">${explorerHTML}</div>
           </td>
-          <td style="text-align:right">${fmtBalance(holder.balance)}</td>
-
-            function explorerLinks(address){
-    const links = [];
-    if (/^0x[a-fA-F0-9]{40}$/.test(address)) {
-      links.push({
-        name: 'Snowtrace',
-        url: `https://snowtrace.io/address/${address}`
-      });
-      links.push({
-        name: 'Avascan',
-        url: `https://avascan.info/blockchain/c/address/${address}`
-      });
+          <td style="text-align:right">${fmtBalance(bal)}</td>
+        </tr>
+      `;
     }
-    return links;
-  }
 
-  function copyToClipboard(text){
-    navigator.clipboard?.writeText(text).then(
-      () => alert('Address copied to clipboard'),
-      () => alert('Copy failed — you can select the text manually.')
-    );
-  }
+    function updateMeta(updatedAt){
+      const total = view.length;
+      const shown = Math.min(cursor, total);
+      const when  = updatedAt ? new Date(updatedAt).toLocaleString() : 'unknown';
+      meta.textContent = `Showing ${shown} of ${total} holders · Updated: ${when}`;
+      more.style.display = shown >= total ? 'none' : 'inline-block';
+    }
 
-  function rowHTML(holder, rank, highlight){
-    const addr = (holder?.address || '').toLowerCase();
-    const bal = Number(holder?.balance ?? 0);
-    const links = explorerLinks(addr);
-    const explorerHTML = links.length
-      ? links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.name}</a>`).join(' · ')
-      : '<span style="opacity:.7">invalid address</span>';
+    function renderReset(){
+      cursor = 0;
+      tbody.innerHTML = '';
+      updateMeta(window._lbUpdatedAt);
+    }
 
-    return `
-      <tr class="${highlight ? 'me' : ''}" data-address="${addr}">
-        <td>${rank}</td>
-        <td>
-          <code title="${addr}">${addr ? (addr.slice(0,6)+'…'+addr.slice(-4)) : '—'}</code>
-          <button
-            style="margin-left:8px;padding:4px 8px;border:1px solid #2a2a2a;border-radius:8px;background:#181818;color:#e5e5e5;cursor:pointer"
-            onclick="copyToClipboard('${addr}')"
-            aria-label="Copy address"
-          >Copy</button>
-          <div style="margin-top:6px">${explorerHTML}</div>
-        </td>
-        <td style="text-align:right">${fmtBalance(bal)}</td>
-      </tr>
-    `;
-  }
+    function renderMore(){
+      const start = cursor;
+      const end   = Math.min(cursor + PAGE_SIZE, view.length);
+      let html = '';
+      for (let i = start; i < end; i++){
+        const h = view[i];
+        const rank = i + 1;
+        const isMe = myWallet && h.address.toLowerCase() === myWallet;
+        html += rowHTML(h, rank, isMe);
+      }
+      tbody.insertAdjacentHTML('beforeend', html);
+      cursor = end;
+      updateMeta(window._lbUpdatedAt);
+    }
 
-  async function load(){
-    try {
-      const res = await fetch(LB_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      all = Array.isArray(data.holders) ? data.holders.filter(h => h && h.address) : [];
-      window._lbUpdatedAt = data.updatedAt || null;
-
-      // ensure sort
-      all.sort((a,b) => Number(b.balance||0) - Number(a.balance||0));
-
-      view = all;
+    function applySearch(q){
+      const s = (q || '').trim().toLowerCase();
+      if (!s){
+        view = all;
+      } else {
+        view = all.filter(h => (h.address || '').toLowerCase().includes(s));
+      }
       renderReset();
       renderMore();
-      updateMeta(window._lbUpdatedAt);
-    } catch (e) {
-      console.error(e);
-      meta.textContent = 'Failed to load leaderboard. Make sure this page is served over HTTP(S) and LB_URL points to a valid JSON.';
     }
-  }
 
-  // ... keep the rest of your code
-</script>
+    async function load(){
+      try {
+        const res = await fetch(LB_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        // Expect { decimals, holders: [{address, balance}], updatedAt? }
+        all = Array.isArray(data.holders) ? data.holders.filter(h => h && h.address) : [];
+        // Sort desc by balance to be safe
+        all.sort((a,b) => Number(b.balance||0) - Number(a.balance||0));
+        window._lbUpdatedAt = data.updatedAt || null;
+
+        view = all;
+        renderReset();
+        renderMore();
+      } catch (e) {
+        console.error(e);
+        meta.textContent = 'Failed to load leaderboard. Serve over HTTP(S) and ensure LB_URL points to a valid JSON.';
+      }
+    }
+
+    // Events
+    search.addEventListener('input', (e) => applySearch(e.target.value));
+    clear.addEventListener('click', () => { search.value=''; applySearch(''); });
+    more.addEventListener('click', renderMore);
+
+    jump.addEventListener('click', async () => {
+      // If user typed a search address, prefer that; otherwise use myWallet
+      const target = (search.value || myWallet || '').toLowerCase().trim();
+      if (!/^0x[a-fA-F0-9]{40}$/.test(target)) {
+        alert('No valid address to jump to (connect wallet on the dashboard or type a full 0x address in Search).');
+        return;
+      }
+      // Find index in the full list
+      const idx = all.findIndex(h => (h.address || '').toLowerCase() === target);
+      if (idx < 0) { alert('Address not found in leaderboard.'); return; }
+
+      // Ensure the row is rendered (paginate forward until includes idx)
+      while (cursor <= idx) renderMore();
+
+      // Highlight & scroll
+      const row = tbody.querySelector(`tr[data-address="${target}"]`);
+      if (row){
+        row.classList.add('me');
+        row.scrollIntoView({ behavior:'smooth', block:'center' });
+      }
+    });
+
+    // Go!
+    load();
+  </script>
+</body>
+</html>
