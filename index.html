@@ -136,17 +136,6 @@
     }
     .tg-banner small{ opacity:.9 }
 
-    /* Leaderboard button (fixed top-right) */
-    .leader-btn{
-      position: fixed; top: 16px; right: 16px; z-index: 1000;
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 14px; border-radius:12px; font-weight:700; font-size:14px;
-      background:linear-gradient(135deg,#22c55e,#2dd4bf); color:#04210e;
-      border:1px solid rgba(0,0,0,.25); box-shadow:0 8px 18px rgba(0,0,0,.35);
-      text-decoration:none; transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
-    }
-    .leader-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(0,0,0,.38); filter:brightness(1.04); }
-
     /* Honor vs Madness button */
     .hvm-btn{
       display:inline-block;
@@ -221,9 +210,6 @@
     </svg>
     DeFi Demystified
   </a>
-
-  <!-- Leaderboard button -->
-  <a class="leader-btn" href="leaderboard.html" aria-label="Open DGND Leaderboard">🏆 Leaderboard</a>
 
   <h1>🔥 Degends DAO Dashboard</h1>
 
@@ -452,7 +438,6 @@
         const address = await signer.getAddress();
 
         document.getElementById("walletAddress").textContent = address;
-        localStorage.setItem("myWallet", address); // persist for leaderboard highlighting
 
         const tokenABI = [ "function balanceOf(address) view returns (uint256)" ];
         const token = new ethers.Contract(tokenAddress, tokenABI, provider);
@@ -550,6 +535,3 @@
   </script>
 </body>
 </html>
-
-
-
