@@ -81,6 +81,16 @@
       .amazon-btn .icon{ width: 16px; height: 16px; }
     }
 
+    /* Top actions row (whitepaper moved here) */
+    .top-actions{
+      margin: 10px auto 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
     /* Partner buttons */
     .btn-vault{
       display:inline-block;
@@ -189,6 +199,20 @@
     .wp-btn:hover{ background: linear-gradient(135deg, #6B7280, #4B5563); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
     .wp-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
 
+    /* GDAO partner button */
+    .gdao-btn{
+      display:inline-block;
+      padding:12px 22px;
+      background: linear-gradient(135deg, #34d399, #10b981);
+      color:#04210e; font-weight:800;
+      border-radius:12px; text-decoration:none;
+      border:1px solid rgba(0,0,0,.15);
+      box-shadow:0 6px 14px rgba(0,0,0,.2);
+      transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+    }
+    .gdao-btn:hover{ background: linear-gradient(135deg, #10b981, #059669); transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.22); }
+    .gdao-btn:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(0,0,0,.12); }
+
     /* Projects table (dark theme) */
     .projects-table-wrap{ max-width:1100px; margin:20px auto; overflow:auto; }
     .projects-table{
@@ -225,6 +249,14 @@
   </a>
 
   <h1>🔥 Degends DAO Dashboard</h1>
+
+  <!-- Top actions (whitepaper moved here) -->
+  <div class="top-actions" role="navigation" aria-label="Primary quick links">
+    <a href="https://docs.google.com/document/d/1yAeyjQnEOK2ab4t6nkb3fMbPIxlYdczUaXYyGmG4_O8/edit?tab=t.0#heading=h.l7y9qc8vvec1"
+       target="_blank" rel="noopener noreferrer" class="wp-btn" aria-label="Open DGND Whitepaper">
+      📄 DGND Whitepaper
+    </a>
+  </div>
 
   <!-- Telegram banner -->
   <div class="tg-banner" role="region" aria-label="Join The Degend's Den">
@@ -370,8 +402,10 @@
 
   <!-- Partner Buttons Row -->
   <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:24px 0;">
-    <a href="https://docs.google.com/document/d/1yAeyjQnEOK2ab4t6nkb3fMbPIxlYdczUaXYyGmG4_O8/edit?tab=t.0#heading=h.l7y9qc8vvec1" target="_blank" rel="noopener noreferrer" class="wp-btn" aria-label="Open DGND Whitepaper">
-      📄 DGND Whitepaper
+    <!-- Whitepaper button moved to top; removed from here -->
+
+    <a href="https://token.thepipegdao.io/" target="_blank" rel="noopener noreferrer" class="gdao-btn" aria-label="Open Pipe GDAO Presale">
+      🤝 Partner: GDAO (Presale)
     </a>
 
     <a href="https://dexfi.com/vaults/1030" target="_blank" rel="noopener" class="btn-vault" aria-label="Enter DexFi Vault">
